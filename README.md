@@ -56,6 +56,10 @@ Swapping the backend does not change the instruction, the `asb` commands, or the
 
 ## Campaigns
 
+<p align="center">
+  <img src="docs/assets/task-format.png" width="880" alt="One campaign: from a starting batch of measured wells, the agent picks a batch, the lab returns results, the agent refits its model, and the loop repeats for a fixed number of rounds.">
+</p>
+
 Every campaign is a design-build-test-learn loop gated on two skills, and the reward is 1 only if every gate passes: **discovery**, judged on what the agent chose to measure, and **learning**, judged on the model it delivers, scored on designs it never measured.
 
 | Campaign | Source | Domain | Backend | Budget |
@@ -67,6 +71,16 @@ Every campaign is a design-build-test-learn loop gated on two skills, and the re
 | [oer-composition-screen](tasks/materials/gregoire-lab/oer-composition-screen/README.md) | [Gregoire group](sources/gregoire-lab/README.md) | materials | replay | 4 × 48 oxide compositions |
 
 Campaigns outside that scope are kept in [archive/](archive/README.md). They still run, but they are not in the dataset or the evaluation runs.
+
+## Results
+
+On the 0.1 pilot leaderboard (eight tasks, one trial each), two configurations lead at 63%. Each square is one configuration, and the line traces the cost frontier: the best resolution rate reached at each budget.
+
+<p align="center">
+  <img src="docs/assets/cost-frontier.png" width="720" alt="Cost versus resolution rate on the 0.1 pilot: GPT-5.6 Terra with Codex and Opus 5.5 with Claude Code reach 63%, and the cost frontier runs through Haiku 4.5, Sonnet 5.5, GPT-5.6 Luna, and GPT-5.6 Terra.">
+</p>
+
+Every configuration, per-task result, and cost is on the [leaderboard](https://yibow.me/autonomous-science-bench/leaderboard).
 
 ## Repository layout
 
@@ -85,7 +99,7 @@ evals/               agent × model presets, Harbor job runner, results summariz
 results/             evaluation outputs (gitignored)
 tools/               vendor_runtime.py, run_local.py (Docker-free trial), update_digests.py
 ci_checks/           static checks for campaign tasks
-docs/                architecture and design notes
+docs/                architecture notes and README figures
 ```
 
 Each campaign is a standard [Harbor](https://harborframework.com/docs) task in the terminal-bench-science format. It has `task.toml`, `instruction.md`, `README.md`, and `environment/`, `solution/`, and `tests/` directories, a lab sidecar in `environment/lab/`, and a separate no-network verifier. Tasks must be self-contained, so `tools/vendor_runtime.py` copies the shared runtime into each one.
