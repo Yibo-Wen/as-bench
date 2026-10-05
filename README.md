@@ -24,6 +24,13 @@
 </p>
 -->
 
+<p align="center">
+  <img src="docs/assets/cost-frontier.png" width="720" alt="Cost versus resolution rate on the 0.1 pilot: GPT-5.6 Terra with Codex and Opus 5.5 with Claude Code reach 63%, and the cost frontier runs through Haiku 4.5, Sonnet 5.5, GPT-5.6 Luna, and GPT-5.6 Terra.">
+</p>
+<p align="center">
+  <em>On the 0.1 pilot leaderboard (eight tasks, one trial each), two configurations lead at 63%. Each square is one configuration; the line traces the cost frontier, the best resolution rate reached at each budget. See the <a href="https://yibow.me/autonomous-science-bench/leaderboard">full leaderboard</a>.</em>
+</p>
+
 It measures how AI systems plan experiments, interpret measurements, and improve their decisions over time, and it evaluates the whole scientific system, from model and agent to tools, memory, and execution harness, on campaigns grounded in real experimental data. The first release sets a common evaluation framework and an initial set of expert-designed campaigns.
 
 1. **From objective to experiment.** Turn a scientific goal into experiments the lab can actually run.
@@ -71,16 +78,6 @@ Every campaign is a design-build-test-learn loop gated on two skills, and the re
 | [oer-composition-screen](tasks/materials/gregoire-lab/oer-composition-screen/README.md) | [Gregoire group](sources/gregoire-lab/README.md) | materials | replay | 4 × 48 oxide compositions |
 
 Campaigns outside that scope are kept in [archive/](archive/README.md). They still run, but they are not in the dataset or the evaluation runs.
-
-## Results
-
-On the 0.1 pilot leaderboard (eight tasks, one trial each), two configurations lead at 63%. Each square is one configuration, and the line traces the cost frontier: the best resolution rate reached at each budget.
-
-<p align="center">
-  <img src="docs/assets/cost-frontier.png" width="720" alt="Cost versus resolution rate on the 0.1 pilot: GPT-5.6 Terra with Codex and Opus 5.5 with Claude Code reach 63%, and the cost frontier runs through Haiku 4.5, Sonnet 5.5, GPT-5.6 Luna, and GPT-5.6 Terra.">
-</p>
-
-Every configuration, per-task result, and cost is on the [leaderboard](https://yibow.me/autonomous-science-bench/leaderboard).
 
 ## Repository layout
 
