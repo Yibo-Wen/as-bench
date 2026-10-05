@@ -8,7 +8,7 @@ Engineer a lead-selective metal biosensor over three rounds of cell-free testing
 |---|---|
 | **Source** | [Jewett lab](../../../../sources/jewett-lab/README.md) (published data) |
 | **Backend** | replay (the study's recorded round-0 screen) |
-| **Author** | AS-Bench Team — yibo@u.northwestern.edu |
+| **Author** | Autonomous Science Benchmark Team — yibo@u.northwestern.edu |
 | **Domain** | biology / jewett-lab / biosensor-engineering |
 | **Tags** | `active-learning` `protein-engineering` `biosensor` `multi-objective` `experimental-design` `ranking` |
 | **Budget** | 3 rounds × 10 variants (30) from 677 orderable variants |
@@ -21,7 +21,7 @@ See [instruction.md](instruction.md) for the task as the agent receives it, and 
 
 ## Author's relevant experience
 
-Campaign designed by the AS-Bench team on the published 2,024-variant cell-free biosensor screen of the Jewett, Shukla, and Lucks groups. It replays the study's unbiased starting library, with gates calibrated against random, coverage-only, and five static-prior baselines over 30 splits.
+Campaign designed by the Autonomous Science Benchmark team on the published 2,024-variant cell-free biosensor screen of the Jewett, Shukla, and Lucks groups. It replays the study's unbiased starting library, with gates calibrated against random, coverage-only, and five static-prior baselines over 30 splits.
 
 ## The science
 

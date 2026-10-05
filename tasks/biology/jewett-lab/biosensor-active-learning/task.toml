@@ -13,10 +13,10 @@ artifacts = [
 name = "as-bench/biosensor-active-learning"
 description = "Engineer a lead-selective metal biosensor over three rounds of cell-free testing, then build a model that ranks untested protein variants by lead response under a zinc-interference constraint."
 keywords = ["protein-engineering", "biosensor", "active-learning", "multi-objective", "ranking", "jewett-lab"]
-authors = [{ name = "AS-Bench Team", email = "yibo@u.northwestern.edu" }]
+authors = [{ name = "Autonomous Science Benchmark Team", email = "yibo@u.northwestern.edu" }]
 
 [metadata]
-author_name = "AS-Bench Team"
+author_name = "Autonomous Science Benchmark Team"
 author_email = "yibo@u.northwestern.edu"
 author_organization = "AS-Bench"
 domain = "biology"
@@ -24,7 +24,7 @@ source = "jewett-lab"
 field = "biosensor-engineering"
 tags = ["active-learning", "protein-engineering", "biosensor", "multi-objective", "experimental-design", "ranking"]
 expert_time_estimate_hours = 8.0
-relevant_experience = "Campaign designed by the AS-Bench team on the published 2,024-variant cell-free PbrR biosensor screen of the Jewett, Shukla, and Lucks groups, replaying the study's unbiased round-0 library, with gates calibrated against random, coverage-only, lead-only, and static-prior baselines over 30 splits."
+relevant_experience = "Campaign designed by the Autonomous Science Benchmark team on the published 2,024-variant cell-free PbrR biosensor screen of the Jewett, Shukla, and Lucks groups, replaying the study's unbiased round-0 library, with gates calibrated against random, coverage-only, lead-only, and static-prior baselines over 30 splits."
 conflicts_of_interest = "None"
 # AS-Bench campaign fields.
 backend = "replay"

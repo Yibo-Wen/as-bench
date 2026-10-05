@@ -8,7 +8,7 @@ Run a four-round droplet-sorting campaign on nuclease variants, 96 variants per 
 |---|---|
 | **Source** | [deepmind](../../../../sources/deepmind/README.md) (published data) |
 | **Backend** | replay (the study's merged four-class activity landscape) |
-| **Author** | AS-Bench Team (AS-Bench) — yibo@u.northwestern.edu |
+| **Author** | Autonomous Science Benchmark Team (AS-Bench) — yibo@u.northwestern.edu |
 | **Domain** | biology / deepmind / protein-engineering |
 | **Tags** | `active-learning` `protein-fitness` `ordered-class-labels` `experimental-design` `ranking` `hit-diversity` |
 | **Budget** | 4 rounds × 96 variants (384) from a 20000-variant shared pool |
@@ -19,7 +19,7 @@ Run a four-round droplet-sorting campaign on nuclease variants, 96 variants per 
 
 ## Author's relevant experience
 
-The campaign was designed by the AS-Bench team against the published landscape, with every
+The campaign was designed by the Autonomous Science Benchmark team against the published landscape, with every
 gate calibrated over 30 independent splits before the task was written.
 
 ## The science

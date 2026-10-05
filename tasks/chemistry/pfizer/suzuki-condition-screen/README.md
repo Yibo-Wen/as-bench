@@ -8,7 +8,7 @@ Screen Suzuki-Miyaura reaction conditions over four rounds of 48 wells against a
 |---|---|
 | **Source** | [pfizer](../../../../sources/pfizer/README.md) |
 | **Backend** | replay |
-| **Author** | AS-Bench Team (AS-Bench) — yibo@u.northwestern.edu |
+| **Author** | Autonomous Science Benchmark Team (AS-Bench) — yibo@u.northwestern.edu |
 | **Domain** | chemistry / pfizer / reaction-screening |
 | **Budget** | 4 rounds × 48 wells = 192, from a 2764-well shared pool |
 | **Expert time estimate** | 10 h |
@@ -17,7 +17,7 @@ Screen Suzuki-Miyaura reaction conditions over four rounds of 48 wells against a
 
 ## Author's relevant experience
 
-Campaign designed by the AS-Bench team on the published Suzuki-Miyaura screen of Perera
+Campaign designed by the Autonomous Science Benchmark team on the published Suzuki-Miyaura screen of Perera
 and colleagues at Pfizer. The target was redefined per substrate pair after an absolute
 yield threshold was measured to be clearable by substrate choice alone, and the gates
 were calibrated against random selection, factorial slicing, a zero-measurement seed

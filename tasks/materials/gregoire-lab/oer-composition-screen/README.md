@@ -25,7 +25,7 @@ overpotential each at 3 mA/cm², lower being better.
 
 ## Author's relevant experience
 
-Designed by the AS-Bench team on the four element systems named in Table 1 of the
+Designed by the Autonomous Science Benchmark team on the four element systems named in Table 1 of the
 source paper. The disjoint evaluation region is not a stylistic choice: six designs that
 let the campaign sample the region it is graded on were simulated first, and every one
 had an empty gate window. Gates were calibrated against non-adaptive selection,
