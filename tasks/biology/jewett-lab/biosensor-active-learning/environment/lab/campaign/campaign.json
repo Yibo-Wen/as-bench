@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "campaign_id": "jewett-lab/biosensor-active-learning",
+  "source": "jewett-lab",
+  "objective": "Engineer a lead-selective variant of the 145-residue metal-responsive regulator over three rounds of cell-free testing, then rank unseen variants by lead response under a zinc-interference constraint.",
+  "design_id_field": "variant_id",
+  "design_space": {
+    "kind": "catalog",
+    "shared_pool": true,
+    "description": "677 substitution variants of the reference protein, named by their substitutions in ascending residue position joined with underscores, for example D64K or N83I_K104V; positions are 1-based against data/reference.fasta"
+  },
+  "measurements": [
+    {
+      "name": "lead_response",
+      "description": "normalized fold change at 1 uM Pb(II): the variant's reporter fold change divided by the reference protein's on the same plate (unitless, reference = 1), mean of two reactions",
+      "higher_is_better": true
+    },
+    {
+      "name": "zinc_response",
+      "description": "normalized fold change at 30 uM Zn(II) on the same scale; a lead-selective variant has a value near zero",
+      "higher_is_better": false
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "label": "design round 1",
+      "batch_size": 10,
+      "catalog": "catalog/pool.csv"
+    },
+    {
+      "stage": 2,
+      "label": "design round 2",
+      "batch_size": 10,
+      "catalog": "catalog/pool.csv"
+    },
+    {
+      "stage": 3,
+      "label": "design round 3",
+      "batch_size": 10,
+      "catalog": "catalog/pool.csv"
+    }
+  ],
+  "deliverable": {
+    "kind": "js-predictor",
+    "format_version": 1,
+    "filename": "final_model.js",
+    "max_bytes": 1048576,
+    "input_field": "sequence",
+    "description": "UTF-8 JavaScript defining a deterministic, pointwise predict(sequence) over the 145-residue sequence that returns one finite number; larger means a higher predicted lead response with zinc interference below the reference."
+  },
+  "backend": {
+    "kind": "replay",
+    "table": "replay/measurements.json"
+  }
+}

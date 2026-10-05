@@ -1,0 +1,168 @@
+# Agent × model presets for AS-Bench evaluation runs.
+#
+# Same idea as terminal-bench-science's .github/llm-config.yml (`harbor_run.agents`):
+# each preset is one Harbor agent + one model, plus optional agent kwargs and
+# environment variables. Suites group presets you usually run together.
+#
+#   uv run python evals/run.py --suite small -k 3 --env modal
+#   uv run python evals/run.py --list
+#
+# Agent + reasoning-effort pairings follow the Terminal-Bench-Science 0.1
+# leaderboard (snorkel.ai/leaderboard/terminal-bench-science, Sept 2026), so
+# AS-Bench numbers can be read against it.
+#
+# Model names:
+#   * Vendor CLIs (claude-code, codex, grok-build) take the vendor's bare model id.
+#     Keep Claude ids bare: with ANTHROPIC_BASE_URL set, claude-code passes the
+#     name through verbatim.
+#   * LiteLLM harnesses (mini-swe-agent, terminus-2) need "<provider>/<model>".
+#
+# Credentials: never put secrets here. Reference them as "${VAR}"; Harbor
+# resolves them from your shell or .env at run time, and the preset's value
+# overrides the host variable of the same name (so a GLM preset cannot send your
+# Anthropic key to z.ai). evals/run.py checks every referenced variable first.
+
+# --- sanity -----------------------------------------------------------------
+[presets.oracle]
+agent = "oracle"
+description = "Runs solution/solve.sh; expect reward 1."
+
+[presets.nop]
+agent = "nop"
+description = "Does nothing; expect reward 0."
+
+# --- Anthropic · Claude Code ------------------------------------------------------
+[presets."claude-fable-5.1"]
+agent = "claude-code"
+model = "claude-fable-5-1"
+kwargs = { reasoning_effort = "max" }
+env = { CLAUDE_CODE_MAX_OUTPUT_TOKENS = "128000" }
+
+[presets."claude-opus-5.5"]
+agent = "claude-code"
+model = "claude-opus-5-5"
+kwargs = { reasoning_effort = "max" }
+env = { CLAUDE_CODE_MAX_OUTPUT_TOKENS = "128000" }
+
+[presets."claude-sonnet-5.5"]
+agent = "claude-code"
+model = "claude-sonnet-5-5"
+kwargs = { reasoning_effort = "high" }
+
+[presets."claude-opus-4.8"]
+agent = "claude-code"
+model = "claude-opus-4-8"
+kwargs = { reasoning_effort = "max" }
+
+[presets."claude-haiku-4.5"]
+agent = "claude-code"
+model = "claude-haiku-4-5-20251001"
+
+# --- OpenAI · Codex ---------------------------------------------------------------
+# codex pinned to 0.146.1 as in terminal-bench-science (0.147.0 was broken).
+[presets."gpt-6-astra"]
+agent = "codex"
+model = "gpt-6-astra"
+kwargs = { reasoning_effort = "max", version = "0.146.1" }
+
+[presets."gpt-5.6-sol"]
+agent = "codex"
+model = "gpt-5.6-sol"
+kwargs = { reasoning_effort = "max", version = "0.146.1" }
+
+[presets."gpt-5.6-terra"]
+agent = "codex"
+model = "gpt-5.6-terra"
+kwargs = { reasoning_effort = "max", version = "0.146.1" }
+
+[presets."gpt-5.6-luna"]
+agent = "codex"
+model = "gpt-5.6-luna"
+kwargs = { reasoning_effort = "max", version = "0.146.1" }
+
+# --- xAI · Grok Build -----------------------------------------------------------
+[presets."grok-4.7"]
+agent = "grok-build"
+model = "grok-4.7"
+kwargs = { reasoning_effort = "xhigh" }
+
+[presets."grok-4.6"]
+agent = "grok-build"
+model = "grok-4.6"
+kwargs = { reasoning_effort = "xhigh" }
+
+# --- Google · mini-SWE-agent ----------------------------------------------------
+[presets."gemini-3.8-flash"]
+agent = "mini-swe-agent"
+model = "gemini/gemini-3.8-flash"
+kwargs = { reasoning_effort = "high" }
+
+[presets."gemini-3.7-flash"]
+agent = "mini-swe-agent"
+model = "gemini/gemini-3.7-flash"
+kwargs = { reasoning_effort = "high" }
+
+# --- DeepSeek · Codex against DeepSeek's Responses endpoint ---------------------
+# "deepseek-flash" is DeepSeek V4.1 Flash.
+[presets."deepseek-v4.1-flash"]
+agent = "codex"
+model = "deepseek-flash"
+kwargs = { reasoning_effort = "max", version = "0.146.1" }
+env = { OPENAI_BASE_URL = "https://api.deepseek.com", OPENAI_API_KEY = "${DEEPSEEK_API_KEY}" }
+
+[presets."deepseek-v4-pro"]
+agent = "codex"
+model = "deepseek-v4-pro"
+kwargs = { reasoning_effort = "max", version = "0.146.1" }
+env = { OPENAI_BASE_URL = "https://api.deepseek.com", OPENAI_API_KEY = "${DEEPSEEK_API_KEY}" }
+
+# --- Z.ai and Moonshot · Claude Code against their Anthropic-compatible endpoints ---
+[presets."glm-5.3"]
+agent = "claude-code"
+model = "glm-5.3"
+kwargs = { reasoning_effort = "max" }
+env = { ANTHROPIC_BASE_URL = "https://api.z.ai/api/anthropic", ANTHROPIC_API_KEY = "${ZAI_API_KEY}", ANTHROPIC_AUTH_TOKEN = "${ZAI_API_KEY}" }
+
+[presets."kimi-k3"]
+agent = "claude-code"
+model = "kimi-k3"
+kwargs = { reasoning_effort = "max" }
+env = { ANTHROPIC_BASE_URL = "https://api.moonshot.ai/anthropic", ANTHROPIC_API_KEY = "${MOONSHOT_API_KEY}", ANTHROPIC_AUTH_TOKEN = "${MOONSHOT_API_KEY}" }
+
+# --- Small open-weight models · mini-SWE-agent via OpenRouter (one key) ----------
+[presets."qwen3.8-27b"]
+agent = "mini-swe-agent"
+model = "openrouter/qwen/qwen3.8-27b"
+
+[presets."glm-5.3-flash"]
+agent = "mini-swe-agent"
+model = "openrouter/z-ai/glm-5.3-flash"
+
+[presets."minimax-m3"]
+agent = "mini-swe-agent"
+model = "openrouter/minimax/minimax-m3"
+
+# --- Fixed harness: several models under the same scaffold (mini-SWE-agent) -----
+[presets."mswea-claude-haiku-4.5"]
+agent = "mini-swe-agent"
+model = "anthropic/claude-haiku-4-5-20251001"
+
+[presets."mswea-gpt-5.6-luna"]
+agent = "mini-swe-agent"
+model = "openai/gpt-5.6-luna"
+kwargs = { reasoning_effort = "high" }
+
+[suites]
+sanity = ["oracle", "nop"]
+# Cheapest capable models: start here.
+small = ["claude-haiku-4.5", "gpt-5.6-luna", "gemini-3.8-flash", "deepseek-v4.1-flash"]
+open-small = ["qwen3.8-27b", "glm-5.3-flash", "minimax-m3"]
+mid = ["claude-sonnet-5.5", "gpt-5.6-terra", "grok-4.7", "glm-5.3", "kimi-k3", "deepseek-v4-pro"]
+frontier = ["gpt-6-astra", "claude-opus-5.5", "claude-fable-5.1", "gpt-5.6-sol"]
+# Every leaderboard entry we can reproduce (Opus 5 and Fable 5 are superseded and omitted).
+tbs-leaderboard = [
+    "gpt-6-astra", "claude-opus-5.5", "claude-fable-5.1", "gpt-5.6-sol", "deepseek-v4.1-flash",
+    "grok-4.7", "gemini-3.8-flash", "claude-opus-4.8", "gpt-5.6-terra", "glm-5.3", "kimi-k3",
+    "grok-4.6", "gemini-3.7-flash", "deepseek-v4-pro", "gpt-5.6-luna",
+]
+harness = ["mswea-claude-haiku-4.5", "mswea-gpt-5.6-luna", "gemini-3.8-flash"]

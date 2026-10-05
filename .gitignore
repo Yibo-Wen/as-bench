@@ -1,0 +1,35 @@
+# Python and tooling caches
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+.ipynb_checkpoints/
+*.tmp
+*.log
+
+# Editors, OS, and local agent settings
+.DS_Store
+.idea/
+.vscode/
+*.swp
+.claude/settings.local.json
+
+# Evaluation outputs (Harbor jobs, configs, summaries)
+results/
+jobs/
+trials/
+
+# Credentials: copy .env.example to .env
+.env
+.env.*
+!.env.example
+
+# Campaign data is always committed, even where a global gitignore drops NumPy
+# arrays (target patterns, hidden truth, example scans).
+!/tasks/**/*.npy
+!/tasks/**/*.npz
+!/archive/**/*.npy
+!/archive/**/*.npz

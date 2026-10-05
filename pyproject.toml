@@ -1,0 +1,26 @@
+[project]
+name = "as-bench-dev"
+version = "0.1.0"
+description = "Development environment for AS-Bench (runtime tests, local campaign runs, checks)."
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    # Same pins as the protein-active-learning image (archive/), so reference solvers run locally.
+    "numpy==2.2.6",
+    "scipy==1.15.3",
+    "scikit-learn==1.6.1",
+    "biopython==1.85",
+    # Deno binary for the JS predictor sandbox (verifier + `asb deliver`).
+    "deno==2.9.4",
+    "pytest==8.4.1",
+]
+
+[dependency-groups]
+# Harbor CLI for evaluation runs: `uv sync --group eval`, then `uv run python evals/run.py ...`.
+eval = ["harbor[modal,daytona]==0.21.0"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["runtime/tests", "evals/tests"]
+pythonpath = ["runtime", "runtime/asb_client", "evals"]

@@ -1,0 +1,293 @@
+openapi: 3.1.0
+info:
+  title: AS-Bench Lab API
+  version: "1"
+  description: >
+    Agent-facing API of a AS-Bench campaign lab. Identical for replay, digital
+    twin, and live backends. Every error response is {"ok": false, "error": str}.
+    Rejected requests (4xx/5xx) never consume budget or advance a stage.
+servers:
+  - url: http://lab:8080
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      responses:
+        "200": {description: Healthy, content: {application/json: {schema: {$ref: "#/components/schemas/Ok"}}}}
+  /v1/campaign:
+    get:
+      summary: Public campaign card (never names the backend)
+      responses:
+        "200": {description: Campaign card, content: {application/json: {schema: {$ref: "#/components/schemas/Campaign"}}}}
+  /v1/status:
+    get:
+      summary: Progress and budget
+      responses:
+        "200": {description: Status, content: {application/json: {schema: {$ref: "#/components/schemas/Status"}}}}
+  /v1/catalog:
+    get:
+      summary: >
+        Designs orderable in a stage (catalog campaigns; grid campaigns answer 400).
+        Shared-pool campaigns return the same static catalog for every stage.
+      parameters:
+        - {name: stage, in: query, required: true, schema: {type: integer, minimum: 1}}
+      responses:
+        "200":
+          description: Catalog rows; the first column is the campaign's design_id_field
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok, stage, designs]
+                properties:
+                  ok: {const: true}
+                  stage: {type: integer}
+                  designs: {type: array, items: {type: object, additionalProperties: {type: string}}}
+        "400": {$ref: "#/components/responses/Error"}
+        "404": {$ref: "#/components/responses/Error"}
+  /v1/experiments:
+    get:
+      summary: List jobs
+      responses:
+        "200":
+          description: Job summaries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {const: true}
+                  jobs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        job_id: {type: string}
+                        stage: {type: integer}
+                        status: {$ref: "#/components/schemas/JobStatus"}
+                        designs: {type: integer, description: batch size}
+    post:
+      summary: Order the next stage's batch
+      description: >
+        The batch must have exactly the stage's batch_size designs. Catalog
+        campaigns send unique design IDs from the next stage's catalog; in
+        shared-pool catalog campaigns (design_space.shared_pool = true) a design
+        already measured in an earlier non-failed job is rejected with 400
+        without consuming the stage. Grid
+        campaigns (design_space.kind = grid) send position IDs "r{row}c{col}"
+        inside design_space.shape; a position can be measured at most once per
+        campaign, and out-of-bounds, duplicate, or repeated positions are
+        rejected without consuming the stage. Upload
+        campaigns (campaign card design_space.kind = upload) send design files
+        with unique names; the lab validates them and rejects a malformed batch
+        without consuming the stage. Re-sending the latest accepted batch
+        returns that job with replayed=true.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [designs]
+              properties:
+                designs:
+                  oneOf:
+                    - {type: array, items: {type: string}, description: catalog design IDs}
+                    - type: array
+                      description: uploaded design files
+                      items:
+                        type: object
+                        additionalProperties: false
+                        required: [name, encoding, data]
+                        properties:
+                          name: {type: string, pattern: "^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$"}
+                          encoding: {enum: [base64, zlib+base64]}
+                          data: {type: string}
+      responses:
+        "200": {description: Job accepted or replayed, content: {application/json: {schema: {$ref: "#/components/schemas/JobResponse"}}}}
+        "400": {$ref: "#/components/responses/Error"}
+        "409": {$ref: "#/components/responses/Error"}
+        "503": {$ref: "#/components/responses/Error"}
+  /v1/experiments/{job_id}:
+    get:
+      summary: Job status and results (polls asynchronous backends)
+      parameters:
+        - {name: job_id, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {description: Job, content: {application/json: {schema: {$ref: "#/components/schemas/JobResponse"}}}}
+        "404": {$ref: "#/components/responses/Error"}
+  /v1/experiments/{job_id}/files/{name}:
+    get:
+      summary: Download one file measurement of a completed job
+      parameters:
+        - {name: job_id, in: path, required: true, schema: {type: string}}
+        - {name: name, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {description: File bytes, content: {application/octet-stream: {}}}
+        "404": {$ref: "#/components/responses/Error"}
+  /v1/deliverables:
+    post:
+      summary: Submit the final deliverable (latest submission is scored)
+      description: >
+        Accepted once deliverable.requires_stages stages are complete (default:
+        all). Text deliverables send source; binary ones (deliverable.content =
+        binary) send encoded data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  additionalProperties: false
+                  required: [kind, format_version, source]
+                  properties:
+                    kind: {type: string, examples: [js-predictor]}
+                    format_version: {type: integer}
+                    source: {type: string}
+                - type: object
+                  additionalProperties: false
+                  required: [kind, format_version, encoding, data]
+                  properties:
+                    kind: {type: string, examples: [npy-binary-mask]}
+                    format_version: {type: integer}
+                    encoding: {enum: [base64, zlib+base64]}
+                    data: {type: string}
+      responses:
+        "200":
+          description: Stored
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: {const: true}
+                  status: {const: received}
+                  seq: {type: integer}
+                  sha256: {type: string}
+        "400": {$ref: "#/components/responses/Error"}
+        "409": {description: Stages incomplete, $ref: "#/components/responses/Error"}
+components:
+  responses:
+    Error:
+      description: Rejected request
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ok, error]
+            properties:
+              ok: {const: false}
+              error: {type: string}
+  schemas:
+    Ok:
+      type: object
+      properties: {ok: {const: true}}
+    JobStatus:
+      type: string
+      enum: [queued, running, completed, failed]
+    Job:
+      type: object
+      required: [job_id, stage, status, designs, results]
+      properties:
+        job_id: {type: string, examples: [job-0001]}
+        stage: {type: integer}
+        status: {$ref: "#/components/schemas/JobStatus"}
+        designs: {type: array, items: {type: string}}
+        results:
+          description: >
+            One row per design when completed, else null. A file measurement's
+            value is a file name to fetch from /v1/experiments/{job_id}/files/{name}.
+          type: [array, "null"]
+          items:
+            type: object
+            description: "{<design_id_field>: id, <measurement>: number, ...}"
+        error: {type: string}
+    JobResponse:
+      type: object
+      properties:
+        ok: {const: true}
+        replayed: {type: boolean}
+        job: {$ref: "#/components/schemas/Job"}
+    Campaign:
+      type: object
+      properties:
+        ok: {const: true}
+        api_version: {const: 1}
+        campaign_id: {type: string}
+        source: {type: string}
+        objective: {type: string}
+        design_id_field: {type: string}
+        design_space:
+          description: >
+            Present for upload, grid, and shared-pool catalog campaigns; absent
+            for per-stage catalog campaigns.
+          type: object
+          properties:
+            kind: {enum: [upload, grid, catalog]}
+            shared_pool: {const: true, description: "catalog only: every stage orders from one pool"}
+            format: {type: string, examples: [npy-binary-mask], description: upload only}
+            max_bytes: {type: integer, description: upload only}
+            constraints: {type: object, description: upload only}
+            shape: {type: array, items: {type: integer}, description: "grid only: [rows, cols]"}
+            id_format: {const: "r{row}c{col}", description: grid only}
+            rules: {type: string, description: grid or shared-pool catalog}
+            description: {type: string}
+        measurements:
+          type: array
+          items:
+            type: object
+            properties:
+              name: {type: string}
+              description: {type: string}
+              higher_is_better: {type: [boolean, "null"]}
+              kind: {enum: [file], description: absent for scalar values}
+        stages:
+          type: array
+          items:
+            type: object
+            properties:
+              stage: {type: integer}
+              label: {type: string}
+              batch_size: {type: integer}
+              catalog_size: {type: integer, description: catalog campaigns only}
+        budget:
+          type: object
+          properties:
+            unit: {type: string}
+            total: {type: integer}
+        deliverable:
+          type: object
+          properties:
+            kind: {type: string}
+            format_version: {type: integer}
+            max_bytes: {type: integer}
+            input_field: {type: string}
+            description: {type: string}
+            requires: {type: string, description: human-readable form of requires_stages}
+            content: {enum: [binary], description: "present for binary deliverables (sent as encoding + data); absent means text (sent as source)"}
+            requires_stages: {type: integer, description: present for binary deliverables}
+            constraints:
+              type: object
+              description: >
+                Kind-specific limits, e.g. {shape, values} for npy-binary-mask or
+                {reconstruction_shape, max_defects} for scan-report.
+    Status:
+      type: object
+      properties:
+        ok: {const: true}
+        api_version: {const: 1}
+        campaign_id: {type: string}
+        stages_total: {type: integer}
+        stages_completed: {type: integer}
+        next_stage: {type: [integer, "null"]}
+        active_job: {type: [string, "null"]}
+        budget:
+          type: object
+          properties:
+            unit: {type: string}
+            total: {type: integer}
+            spent: {type: integer}
+            remaining: {type: integer}
+        deliverable_submitted: {type: boolean}

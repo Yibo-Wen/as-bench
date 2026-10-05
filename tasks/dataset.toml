@@ -1,0 +1,49 @@
+# Dataset manifest for as-bench/as-bench.
+#
+# This file is the ALLOWLIST of what ships in the published dataset: a task in
+# tasks/ that is not listed here is not in the benchmark.
+#
+# Tasks nest as tasks/<domain>/<source>/<campaign>, the same depth as
+# terminal-bench-science, so the same Harbor recipes apply. Generate or refresh
+# entries (this also writes each task's content digest):
+#
+#   harbor add tasks/*/*/ --scan --to tasks
+#
+# Publish tasks first, then the dataset:
+#
+#   harbor publish tasks/*/*/
+#   harbor publish tasks/ --no-tasks -t v0.1-preview
+#
+# Digests must be refreshed after ANY change to a task's hashed files
+# (task.toml, README.md, instruction.md, environment/, tests/, solution/),
+# including a re-run of tools/vendor_runtime.py that changes vendored copies.
+# `uv run python tools/update_digests.py` rewrites them (--check fails if stale).
+
+[dataset]
+name = "as-bench/as-bench"
+description = "Autonomous Science Benchmark: AI agents run bounded, budgeted design-build-test-learn campaigns against replays and digital twins of published experiments."
+keywords = ["benchmark", "agents", "ai-for-science", "autonomous-labs", "active-learning", "experimental-design"]
+[[dataset.authors]]
+name = "AS-Bench Team"
+email = "yibo@u.northwestern.edu"
+
+
+[[tasks]]
+name = "as-bench/biosensor-active-learning"
+digest = "sha256:4f282c13a13676fbc08be521f49cab85726bdd404d61388268b30d4bbeaa7711"
+
+[[tasks]]
+name = "as-bench/propylene-active-learning"
+digest = "sha256:00de7b7aa0cfad0b17672231c43921c541f1638a1aebb01480df5331a6b82b98"
+
+[[tasks]]
+name = "as-bench/nuclease-active-learning"
+digest = "sha256:1d6d7d32c8ad440f6da2487eb8034c8cd569e918cbb892b8e780942689bf4821"
+
+[[tasks]]
+name = "as-bench/suzuki-condition-screen"
+digest = "sha256:0b9f2676d121be612452160f9bbaf43eec474ebce63acbca00fe975ec35ad1e0"
+
+[[tasks]]
+name = "as-bench/oer-composition-screen"
+digest = "sha256:78009a7d9101830987a7f2827a0d93a42832843cc78356a88745b8fc18b4a410"

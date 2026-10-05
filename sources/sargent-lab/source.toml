@@ -1,0 +1,31 @@
+# Published-data source card. A source is a research group whose published
+# measurements back replay (or twin) campaigns. Campaigns from a source live under
+# tasks/<domain>/<id>/ and declare [metadata] source = "<id>".
+# ci_checks/check-source-registry.sh enforces that the path, the task metadata, and
+# this card agree, and that the card enables each campaign's backend.
+
+id = "sargent-lab"
+name = "Sargent lab"
+full_name = "Sargent Group, with the Sinton and Hattrick-Simpers groups"
+institution = "Northwestern University; University of Toronto"
+domain = "chemistry"
+fields = ["electrocatalysis", "co2-reduction"]
+description = "Accelerated CO2-electroreduction screening of multi-element alloy catalysts: robotic synthesis, parallel membrane-electrode-assembly testing at 100-300 mA cm^-2, and automated gas chromatography."
+
+[[publications]]
+doi = "10.1016/j.joule.2025.102213"
+citation = "Kim, Mahesh, Lee, ..., Hattrick-Simpers, Sargent, Sinton. Accelerated discovery of CO2-to-C3-hydrocarbon electrocatalysts with human-in-the-loop. Joule 9, 102213 (2025)."
+
+[[datasets]]
+doi = "10.5281/zenodo.15107045"
+license = "CC-BY-4.0"
+files = ["CO2R_dataset.xlsx", "OCP_Eads.xlsx", "Pourbaix_phase.xlsx", "BayesOpt_grid.csv"]
+
+[capabilities]
+design_spaces = ["dilute Cu alloys with one or two of 14 dopants (shared-pool catalog)"]
+measurements = ["j_propylene", "product Faradaic efficiencies at 100/200/300 mA cm^-2"]
+
+# Sources support replay and twin backends only; a source cannot run jobs live.
+[backends]
+replay = true   # published measurements replayed by the lab sidecar
+twin = true     # the study's virtual screening space: measured values where measured, its model elsewhere (labelled simulated)

@@ -1,0 +1,118 @@
+{
+  "format_version": 1,
+  "campaign_id": "athena/sparse-defect-scan",
+  "source": "athena",
+  "objective": "Map a 128 x 128 field of view and locate its point defects from a sparse, adaptively chosen set of probe positions.",
+  "design_id_field": "position",
+  "design_space": {
+    "kind": "grid",
+    "shape": [
+      128,
+      128
+    ],
+    "description": "probe positions (row, col) on the field-of-view pixel grid"
+  },
+  "measurements": [
+    {
+      "name": "signal",
+      "higher_is_better": null,
+      "description": "detector signal at the probe position (one acquisition, map units)"
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "label": "scan round 1",
+      "batch_size": 20
+    },
+    {
+      "stage": 2,
+      "label": "scan round 2",
+      "batch_size": 20
+    },
+    {
+      "stage": 3,
+      "label": "scan round 3",
+      "batch_size": 20
+    },
+    {
+      "stage": 4,
+      "label": "scan round 4",
+      "batch_size": 20
+    },
+    {
+      "stage": 5,
+      "label": "scan round 5",
+      "batch_size": 20
+    },
+    {
+      "stage": 6,
+      "label": "scan round 6",
+      "batch_size": 20
+    },
+    {
+      "stage": 7,
+      "label": "scan round 7",
+      "batch_size": 20
+    },
+    {
+      "stage": 8,
+      "label": "scan round 8",
+      "batch_size": 20
+    },
+    {
+      "stage": 9,
+      "label": "scan round 9",
+      "batch_size": 20
+    },
+    {
+      "stage": 10,
+      "label": "scan round 10",
+      "batch_size": 20
+    },
+    {
+      "stage": 11,
+      "label": "scan round 11",
+      "batch_size": 20
+    },
+    {
+      "stage": 12,
+      "label": "scan round 12",
+      "batch_size": 20
+    },
+    {
+      "stage": 13,
+      "label": "scan round 13",
+      "batch_size": 20
+    },
+    {
+      "stage": 14,
+      "label": "scan round 14",
+      "batch_size": 20
+    },
+    {
+      "stage": 15,
+      "label": "scan round 15",
+      "batch_size": 20
+    }
+  ],
+  "deliverable": {
+    "kind": "scan-report",
+    "format_version": 1,
+    "filename": "scan_report.json",
+    "max_bytes": 2097152,
+    "requires_stages": 1,
+    "description": "JSON {format_version, reconstruction: 128 x 128 numbers, defects: [{row, col}, ...]} (see /app/data/README.md)",
+    "constraints": {
+      "reconstruction_shape": [
+        128,
+        128
+      ],
+      "max_defects": 60
+    }
+  },
+  "backend": {
+    "kind": "replay",
+    "table": "replay/acquisition.json"
+  }
+}

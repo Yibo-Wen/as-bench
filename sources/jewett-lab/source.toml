@@ -1,0 +1,34 @@
+# Published-data source card. A source is a research group whose published
+# measurements back replay (or twin) campaigns. Campaigns from a source live under
+# tasks/<domain>/<id>/ and declare [metadata] source = "<id>".
+# ci_checks/check-source-registry.sh enforces that the path, the task metadata, and
+# this card agree, and that the card enables each campaign's backend.
+
+id = "jewett-lab"
+name = "Jewett lab"
+full_name = "Jewett Group, with the Shukla and Lucks groups"
+institution = "Stanford University; Northwestern University; University of Illinois Urbana-Champaign"
+domain = "biology"
+fields = ["cell-free-expression", "biosensor-engineering"]
+description = "Machine-learning-guided engineering of allosteric transcription factor biosensors in cell-free gene expression reactions: plate-scale screening of variant libraries against metal ligands, fluorescent reporter readout, and freeze-dried point-of-use diagnostics."
+
+[[publications]]
+doi = "10.1038/s41467-025-66964-6"
+citation = "Wang, Chiang, Ekas, Brown, Dildine, Lucci, Feng, Bly, Gaillard, Lucks, Karim, Shukla, Jewett. Active learning-guided optimization of cell-free biosensors for lead testing in drinking water. Nature Communications 17, 261 (2025)."
+
+[[publications]]
+doi = "10.1021/acssynbio.4c00456"
+citation = "Ekas, Wang, ..., Karim, Jewett. Engineering a PbrR-based biosensor for cell-free detection of lead at the legal limit. ACS Synthetic Biology (2024). The study that built the 1,155-variant PbrR library."
+
+[[datasets]]
+doi = "10.1038/s41467-025-66964-6"
+license = "CC-BY-4.0"
+files = ["41467_2025_66964_MOESM6_ESM.xlsx", "41467_2025_66964_MOESM4_ESM.xlsx"]
+
+[capabilities]
+design_spaces = ["substitution variants of the 145-residue lead-responsive regulator PbrR (shared-pool catalog)"]
+measurements = ["normalized fold change at 1 uM Pb(II)", "normalized fold change at 30 uM Zn(II)", "normalized fold change with no added metal"]
+
+# Sources support replay and twin backends only; a source cannot run jobs live.
+[backends]
+replay = true   # published measurements replayed by the lab sidecar

@@ -1,0 +1,37 @@
+# Published-data source card. A source is a research group whose published
+# measurements back replay (or twin) campaigns. Campaigns from a source live under
+# tasks/<domain>/<id>/ and declare [metadata] source = "<id>".
+# ci_checks/check-source-registry.sh enforces that the path, the task metadata, and
+# this card agree, and that the card enables each campaign's backend.
+
+id = "deepmind"
+name = "DeepMind protein design"
+full_name = "Google DeepMind, with Triplebar"
+institution = "Google DeepMind; Triplebar Inc."
+domain = "biology"
+fields = ["protein-engineering", "directed-evolution"]
+description = "Machine-learning-guided enzyme engineering with ultra-high-throughput microfluidic screening: four rounds of droplet sorting on designed nuclease libraries, yielding activity classes for 55,760 distinct variants plus purified-protein confirmations."
+
+[[publications]]
+doi = "10.1016/j.cels.2025.101236"
+citation = "Thomas, Belanger, Xu, Lee, Hirano, Iwai, Polic, Nyberg, Hoff, Frenz, Emrich, Kim, Chavarha, Ramanan, Agresti, Colwell. Engineering highly active nuclease enzymes with machine learning and high-throughput screening. Cell Systems 6, 101236 (2025)."
+
+[[publications]]
+doi = "10.1101/2024.03.21.585615"
+citation = "Preprint of the same study, bioRxiv (2024)."
+
+[[datasets]]
+doi = "10.1016/j.cels.2025.101236"
+license = "CC-BY-4.0"
+url = "https://storage.googleapis.com/nuclease_design"
+files = ["processed_data/landscape.csv", "processed_data/g1.csv", "processed_data/g2.csv", "processed_data/g3.csv", "processed_data/g4.csv", "alignments/F1BV52_BACLI_e3_n8_mFirst.a2m", "analysis/zero_shot_scores.csv", "plate_data/genotypes.csv"]
+notes = "Released with github.com/google-deepmind/nuclease_design: software under Apache-2.0, all other materials (including these tables) under CC-BY-4.0."
+
+[capabilities]
+design_spaces = ["designed variants of a 142-residue bacterial nuclease, 1-23 substitutions (shared-pool catalog)"]
+measurements = ["activity_class: an ordered four-level catalytic activity call from droplet sorting"]
+
+# Sources support replay and twin backends only; a source cannot run jobs live.
+[backends]
+replay = true   # published activity classes replayed by the lab sidecar
+twin = false

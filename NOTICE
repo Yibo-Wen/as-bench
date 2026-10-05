@@ -1,0 +1,20 @@
+AS-Bench
+Copyright 2026 The AS-Bench authors.
+
+This product includes software and task material adapted from
+terminal-bench-science (https://github.com/harbor-framework/terminal-bench-science),
+commit cfff307772949a2ef90aab1aada9597e92a6ad1e, Copyright 2026 Harbor Framework
+Team, licensed under the Apache License, Version 2.0:
+
+  - runtime/sandbox/js_runner.ts (Deno sandbox runner)
+  - runtime/asb_verify/ (verifier helpers derived from the protein-active-learning verifier)
+  - runtime/asb_lab/ and runtime/asb_client/ (derived from the protein-active-learning
+    assay, submission, and client services)
+  - archive/biology/dream/protein-active-learning/ (task adapted from
+    terminal-bench-science/protein-active-learning by Anirudha Ramesh)
+  - archive/semiconductors/nanofab/inverse-lithography/ (task adapted from
+    terminal-bench-science/inverse-lithography by Andrey Bryutkin and
+    Benjamin Savinson)
+  - task-template.toml, task-readme-template.md, and ci_checks/ conventions
+
+Campaign data carry their own licenses; see each task's LICENSE.md.
