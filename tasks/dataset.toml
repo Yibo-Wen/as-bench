@@ -30,20 +30,20 @@ email = "yibo@u.northwestern.edu"
 
 [[tasks]]
 name = "as-bench/biosensor-active-learning"
-digest = "sha256:657339e33ee82c6d8ddf8b08d343503f011298f988df6cbf432353497f1f1912"
+digest = "sha256:0a3cd53b70e4fb4f7f2fadf20db46c87c1d5f0c8a364a9acbc6c97345dc29060"
 
 [[tasks]]
 name = "as-bench/propylene-active-learning"
-digest = "sha256:e9939032e505af83cbd950312c7496b1bb54b8371ee3f27a52a3af543136ad8e"
+digest = "sha256:ea767bff551fa6402c777d52a3e38c139bd9ee4b33ab4f3abfb3f7e4983e3a9b"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
-digest = "sha256:c60edd4b7741af812899d9e488d4da9ecd136fa583a7d6ac500f73cde3ad5ef9"
+digest = "sha256:6c2dced678ffb2cc8f6cf2db2694146f81d7947e62f3ff3dc9a85c35c690fa7f"
 
 [[tasks]]
 name = "as-bench/suzuki-condition-screen"
-digest = "sha256:f1595f842fb08fb08d14441e65bf3d7ef5a64853fc870b9a26496805ede506f8"
+digest = "sha256:35fe02c47e3cae502c62dd438c7add5c710d4f556a2e9e022120bb3f9b2edfee"
 
 [[tasks]]
 name = "as-bench/oer-composition-screen"
-digest = "sha256:7b63859dbdf02f01d5065d360c8a2780f0a0cae7288962caa2357a0f9b1b5c82"
+digest = "sha256:7bfa8c7dd6d5715064f0dbf80189af511291ae56056665fb6b96b321622642fd"
