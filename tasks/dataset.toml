@@ -38,7 +38,7 @@ digest = "sha256:e9939032e505af83cbd950312c7496b1bb54b8371ee3f27a52a3af543136ad8
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
-digest = "sha256:40a8086e10ff13cf5ea78a2bbf579466c18c0562c9da55b9c09c2e1bfd16ce03"
+digest = "sha256:fd58514ed6ab479b68551dcf2ba3205c544bd19a0d1b9d512a273e4cb458bb42"
 
 [[tasks]]
 name = "as-bench/suzuki-condition-screen"

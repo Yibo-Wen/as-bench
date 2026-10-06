@@ -45,9 +45,9 @@ MAX_MODEL_BYTES = 4 * 1024 * 1024
 DESIGN_ID = re.compile(r"^variant_[0-9a-f]{16}$")
 SUBSTITUTION = re.compile(r"^[A-Z]([1-9][0-9]{0,2})[A-Z]$")
 GATES = {
-    "discovery_hits": 175,
-    "distinct_hit_families": 150,
-    "ndcg_at_100": 0.36,
+    "discovery_hits": 190,
+    "distinct_hit_families": 175,
+    "ndcg_at_100": 0.42,
 }
 
 

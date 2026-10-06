@@ -38,7 +38,7 @@ import numpy as np
 
 TASK = Path(__file__).resolve().parent.parent
 
-GATES = {"discovery_hits": 175, "distinct_hit_families": 150, "ndcg_at_100": 0.36}
+GATES = {"discovery_hits": 190, "distinct_hit_families": 175, "ndcg_at_100": 0.42}
 RANKING_GATES = ("ndcg_at_100",)
 # Reported for context; exempt from rule 2.
 EXEMPT = ("Reference (greedy ridge)", "Oracle ranking")
