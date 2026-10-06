@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Vendored from runtime/asb_lab/server.py by tools/vendor_runtime.py. Do not edit; change the source and re-run.
-"""AS-Bench Lab API v1 server. Stdlib only; no filesystem or code-execution endpoints.
+"""Autonomous Science Bench Lab API v1 server. Stdlib only; no filesystem or code-execution endpoints.
 
 Run inside the lab sidecar as ``python3 -m asb_lab.server``. Configuration:
 

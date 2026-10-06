@@ -1,5 +1,5 @@
 // Vendored from runtime/sandbox/js_runner.ts by tools/vendor_runtime.py. Do not edit; change the source and re-run.
-// AS-Bench sandbox: run an untrusted pointwise predictor in fresh permissionless Deno workers.
+// Autonomous Science Bench sandbox: run an untrusted pointwise predictor in fresh permissionless Deno workers.
 // Derived from terminal-bench-science protein-active-learning (Apache-2.0).
 
 const requestText = await new Response(Deno.stdin.readable).text();

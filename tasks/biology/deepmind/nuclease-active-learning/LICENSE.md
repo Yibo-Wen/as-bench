@@ -21,7 +21,7 @@ The variant sequences, activity classes, and homolog alignment in `environment/d
 
 The article and the data are licensed under the Creative Commons Attribution 4.0
 International License (CC BY 4.0, https://creativecommons.org/licenses/by/4.0/); the
-accompanying software is Apache-2.0. AS-Bench changed the data as follows: it read only
+accompanying software is Apache-2.0. Autonomous Science Bench changed the data as follows: it read only
 the `mutations`, `num_mutations`, `activity_level`, and `sequence` columns and dropped
 `sublibrary_names` and `generations`; it encoded the four ordered activity levels as the
 integers 0 to 3; it dropped the wild-type row and every variant with twelve or more
@@ -39,7 +39,7 @@ alignment.
 
 ## Code
 
-All code in this task was written for AS-Bench and is released under the repository's
+All code in this task was written for Autonomous Science Bench and is released under the repository's
 Apache-2.0 license. No code from the authors' repository
 (github.com/google-deepmind/nuclease_design, Apache-2.0) was copied. The zero-shot
 calibration baseline is an alignment log-odds score written for this campaign; it was

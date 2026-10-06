@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Vendored from runtime/asb_client/asb.py by tools/vendor_runtime.py. Do not edit; change the source and re-run.
-"""asb: command-line client for a AS-Bench Lab campaign. Stdlib only.
+"""asb: command-line client for an Autonomous Science Bench Lab campaign. Stdlib only.
 
   asb campaign                          objective, stages, measurements, deliverable
   asb status                            progress and remaining budget

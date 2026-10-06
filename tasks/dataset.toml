@@ -21,29 +21,29 @@
 
 [dataset]
 name = "as-bench/as-bench"
-description = "Autonomous Science Benchmark: AI agents run bounded, budgeted design-build-test-learn campaigns against replays and digital twins of published experiments."
+description = "Autonomous Science Bench: AI agents run bounded, budgeted design-build-test-learn campaigns against replays and digital twins of published experiments."
 keywords = ["benchmark", "agents", "ai-for-science", "autonomous-labs", "active-learning", "experimental-design"]
 [[dataset.authors]]
-name = "Autonomous Science Benchmark Team"
+name = "Autonomous Science Bench Team"
 email = "yibo@u.northwestern.edu"
 
 
 [[tasks]]
 name = "as-bench/biosensor-active-learning"
-digest = "sha256:ce2ca9dbe17047ab71ddedd7f772d6442d1ccbcf8751c67ad9cb19fa6471396f"
+digest = "sha256:ab33353e0ea442d91c38e2df4f28b5d5b4e14309d04c62cdb3cfd99a7982a09a"
 
 [[tasks]]
 name = "as-bench/propylene-active-learning"
-digest = "sha256:2340e0f663adcc9f0bc79b42a071e618443caebe0184a4d45daf85b46853c014"
+digest = "sha256:9ec7265ae8320ffc9257362887d6240c64cfee3f9f557278c62873f85e8f0727"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
-digest = "sha256:59c52a216f5301c9162a299f24c1ed940957df1f5f0ec7f3cd53e76796956703"
+digest = "sha256:2f436911fc6f02a2380528d364e61b6922456e97b68a36235c47edeaec810104"
 
 [[tasks]]
 name = "as-bench/suzuki-condition-screen"
-digest = "sha256:2d534116bf4a8dfba560d54974116c6164de5ab4d892d12dcf051e5e4d1487fb"
+digest = "sha256:4e215ce7fe73b68191d3897c09dbbc1f11d3c6dac73cefaa44fad78d4f42a158"
 
 [[tasks]]
 name = "as-bench/oer-composition-screen"
-digest = "sha256:81eed53bc1f6a39163f0187275172615b698746ff759e7aaafdba134e9937193"
+digest = "sha256:9372aebba6d7591f792409c07c699b829e10dbe4b3eb71cd34abf67584b296fa"

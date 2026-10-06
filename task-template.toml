@@ -32,9 +32,9 @@ tags = []
 expert_time_estimate_hours = 0.0
 relevant_experience = ""
 conflicts_of_interest = "None"
-# AS-Bench campaign fields.
+# Autonomous Science Bench campaign fields.
 backend = "replay"       # replay | twin | live — must be enabled in the source card
-lab_api_version = 1      # marks this as an AS-Bench campaign; tools/vendor_runtime.py vendors the runtime
+lab_api_version = 1      # marks this as an Autonomous Science Bench campaign; tools/vendor_runtime.py vendors the runtime
 
 [agent]
 # instruction.md must end with "You have N seconds to complete this task. Do not

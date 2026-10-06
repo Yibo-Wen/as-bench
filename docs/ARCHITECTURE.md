@@ -1,4 +1,4 @@
-# AS-Bench architecture
+# Autonomous Science Bench architecture
 
 ## Trial topology
 
@@ -7,7 +7,7 @@
 │                                                                              │
 │  main (agent)                      lab (sidecar, internal network only)      │
 │  ─────────────                     ──────────────────────────────────────    │
-│  /app/data  public data            asb_lab.server  AS-Bench Lab API v1            │
+│  /app/data  public data            asb_lab.server  Lab API v1                │
 │  asb  ── HTTP ─────────────────▶   campaign.json   stages, catalogs, budget  │
 │  deno (local validation)           backend         replay | twin | live      │
 │                                    /state/ledger.json                        │

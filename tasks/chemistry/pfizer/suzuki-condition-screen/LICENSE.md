@@ -5,7 +5,7 @@
 ## Campaign code
 
 Everything authored for this campaign — `authoring/`, `solution/`, `tests/test_outputs.py`,
-the Dockerfiles, `instruction.md`, `README.md` — is part of AS-Bench and carries the
+the Dockerfiles, `instruction.md`, `README.md` — is part of Autonomous Science Bench and carries the
 repository's Apache-2.0 licence.
 
 ## Measurements: CC-BY-SA-4.0
@@ -47,4 +47,4 @@ top-condition flag and normalised yield are added. No yield value is altered.
 Anyone redistributing those five files, or further adaptations of them, must do so under
 CC-BY-SA-4.0 with attribution to Perera et al. and to the Open Reaction Database. This is
 the first share-alike dataset in this repository; the share-alike obligation attaches to
-these derived tables, not to AS-Bench's own code.
+these derived tables, not to Autonomous Science Bench's own code.

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Every campaign task has the files an AS-Bench campaign needs.
+# Every campaign task has the files an Autonomous Science Bench campaign needs.
 source "$(dirname "$0")/lib.sh"
 REQUIRED="task.toml instruction.md README.md LICENSE.md
 environment/Dockerfile environment/.dockerignore environment/docker-compose.yaml

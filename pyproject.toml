@@ -1,7 +1,7 @@
 [project]
 name = "as-bench-dev"
 version = "0.1.0"
-description = "Development environment for AS-Bench (runtime tests, local campaign runs, checks)."
+description = "Development environment for Autonomous Science Bench (runtime tests, local campaign runs, checks)."
 requires-python = ">=3.13,<3.14"
 dependencies = [
     # Same pins as the protein-active-learning image (archive/), so reference solvers run locally.

@@ -10,7 +10,7 @@ public under CC-BY-4.0:
 - Paper: Kim et al., *Joule* 9, 102213 (2025), doi:10.1016/j.joule.2025.102213
 - Data: doi:10.5281/zenodo.15107045
 
-AS-Bench replays this group's published measurements; it
+Autonomous Science Bench replays this group's published measurements; it
 cannot send jobs to the group's lab. Campaigns built on this source support the replay
 and twin backends. The twin is the study's own virtual screening space: measured values
 where the study measured, its surrogate model elsewhere, always labelled as simulated.

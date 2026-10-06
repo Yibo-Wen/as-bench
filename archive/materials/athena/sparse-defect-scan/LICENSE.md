@@ -18,4 +18,4 @@ activescan code is not redistributed in this task; only arrays it generated are.
 
 ## Task material
 
-The campaign definition, generated data files, verifier, and reference solution are part of AS-Bench and are licensed under the Apache License 2.0 (see the repository `LICENSE`).
+The campaign definition, generated data files, verifier, and reference solution are part of Autonomous Science Bench and are licensed under the Apache License 2.0 (see the repository `LICENSE`).

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""AS-Bench Lab API v1 server. Stdlib only; no filesystem or code-execution endpoints.
+"""Autonomous Science Bench Lab API v1 server. Stdlib only; no filesystem or code-execution endpoints.
 
 Run inside the lab sidecar as ``python3 -m asb_lab.server``. Configuration:
 

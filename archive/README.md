@@ -1,6 +1,6 @@
 # Archive
 
-Campaigns kept outside AS-Bench's scope. Every campaign in [`tasks/`](../tasks/) is a design-build-test-learn loop gated on two skills: **discovery**, judged on what the agent chose to measure, and **learning**, judged on the model it delivers, scored on designs it never measured. The campaigns below gate something else, so they are not in [`tasks/dataset.toml`](../tasks/dataset.toml) or the evaluation runs.
+Campaigns kept outside Autonomous Science Bench's scope. Every campaign in [`tasks/`](../tasks/) is a design-build-test-learn loop gated on two skills: **discovery**, judged on what the agent chose to measure, and **learning**, judged on the model it delivers, scored on designs it never measured. The campaigns below gate something else, so they are not in [`tasks/dataset.toml`](../tasks/dataset.toml) or the evaluation runs.
 
 | Campaign | Built for | Domain | Backend | Budget | What it gates instead | Adapted from |
 |---|---|---|---|---|---|---|
@@ -8,7 +8,7 @@ Campaigns kept outside AS-Bench's scope. Every campaign in [`tasks/`](../tasks/)
 | [inverse-lithography](semiconductors/nanofab/inverse-lithography/README.md) | Nanofab, Virginia Tech (PCL node) | semiconductors | twin | 3 print rounds × 2 masks | The final mask design: normalized XOR ≤ 0.09 and morphology change ≤ 2% | terminal-bench-science |
 | [sparse-defect-scan](materials/athena/sparse-defect-scan/README.md) | ATHENA (PCL node) | materials | replay | 15 scan rounds × 20 probe positions | The delivered scan report: background NRMSE ≤ 0.20 and defect F1 ≥ 0.75 | [active-learning-microscopy](https://github.com/aamirmalik-dr/active-learning-microscopy) |
 
-All three were built for nodes of the Programmable Cloud Laboratories (PCL) network, where AS-Bench began as PCL Bench. Every campaign in `tasks/` runs on published data from a source.
+All three were built for nodes of the Programmable Cloud Laboratories (PCL) network, where Autonomous Science Bench began as PCL Bench. Every campaign in `tasks/` runs on published data from a source.
 
 ## Status
 

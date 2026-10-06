@@ -13,20 +13,20 @@ artifacts = [
 name = "as-bench/sparse-defect-scan"
 description = "Steer a scanning microscope over a 128 x 128 field of view with at most 300 adaptively chosen probe positions, then deliver a reconstructed map and the locations of its point defects."
 keywords = ["autonomous-microscopy", "active-learning", "sparse-sampling", "defect-detection", "gaussian-process", "athena"]
-authors = [{ name = "Autonomous Science Benchmark Team", email = "yibo@u.northwestern.edu" }]
+authors = [{ name = "Autonomous Science Bench Team", email = "yibo@u.northwestern.edu" }]
 
 [metadata]
-author_name = "Autonomous Science Benchmark Team"
+author_name = "Autonomous Science Bench Team"
 author_email = "yibo@u.northwestern.edu"
-author_organization = "AS-Bench"
+author_organization = "Autonomous Science Bench"
 domain = "materials"
 source = "athena"
 field = "microscopy"
 tags = ["autonomous-microscopy", "active-learning", "sparse-sampling", "defect-detection", "experimental-design", "reconstruction"]
 expert_time_estimate_hours = 6.0
-relevant_experience = "Campaign designed by the Autonomous Science Benchmark team on the measurement-budget formulation and simulator of activescan (Aamir Malik, active-learning-microscopy), with gates calibrated against its static and Gaussian-process scanning baselines."
+relevant_experience = "Campaign designed by the Autonomous Science Bench team on the measurement-budget formulation and simulator of activescan (Aamir Malik, active-learning-microscopy), with gates calibrated against its static and Gaussian-process scanning baselines."
 conflicts_of_interest = "None"
-# AS-Bench campaign fields.
+# Autonomous Science Bench campaign fields.
 backend = "replay"
 lab_api_version = 1
 asb_components = ["lab", "client", "verify"]

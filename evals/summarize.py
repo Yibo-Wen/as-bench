@@ -15,7 +15,7 @@ recorded reward, so trials scored before a gate was retuned stay comparable with
 later ones. A trial missing a gated metric, having delivered nothing, keeps its
 recorded reward.
 
-Trials recorded before the PCL Bench -> AS-Bench rename carry task names like
+Trials recorded before the PCL Bench -> Autonomous Science Bench rename carry task names like
 "pcl-bench/<slug>"; they are merged under "as-bench/<slug>".
 
 Trials that were stopped (unfinished or cancelled) are ignored. Trials whose
@@ -44,7 +44,7 @@ BASE_COLUMNS = [
 ]
 #: Where task directories live: the dataset, then retired and withheld campaigns.
 TASK_ROOTS = [ROOT / "tasks", ROOT / "archive", ROOT / "withheld"]
-#: Task-name prefixes from before the rename, all reported as AS-Bench.
+#: Task-name prefixes from before the rename, all reported as Autonomous Science Bench.
 OLD_PREFIXES = ("pcl-bench/",)
 CANCELLED = {"CancelledError", "KeyboardInterrupt"}
 TIMEOUTS = {"AgentTimeoutError"}
@@ -261,7 +261,7 @@ def _model_label(model: str, effort: str) -> str:
 
 def render_markdown(summary: dict[str, dict], n_trials: int) -> str:
     lines = [
-        "# AS-Bench results",
+        "# Autonomous Science Bench results",
         "",
         f"Generated {datetime.now():%Y-%m-%d %H:%M} from {n_trials} trial(s). "
         "Columns are each task's gated metrics, as mean (best) over trials that reached scoring; "

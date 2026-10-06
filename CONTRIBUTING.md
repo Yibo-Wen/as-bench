@@ -1,6 +1,6 @@
-# Contributing to AS-Bench
+# Contributing to Autonomous Science Bench
 
-AS-Bench grows one **campaign** at a time. A campaign is one bounded, budgeted scientific task that runs against a lab service. Each campaign belongs to a **source**: the research group whose published data back it.
+Autonomous Science Bench grows one **campaign** at a time. A campaign is one bounded, budgeted scientific task that runs against a lab service. Each campaign belongs to a **source**: the research group whose published data back it.
 
 Every campaign in `tasks/` is a design-build-test-learn loop gated on two skills: **discovery**, judged on what the agent chose to measure (for example, hits among the designs it ordered), and **learning**, judged on the model it delivers, scored on designs it never measured (for example, NDCG on a held-out set). A campaign without both belongs in `archive/` (see [Archiving a campaign](#archiving-a-campaign)).
 
@@ -10,7 +10,7 @@ Every campaign in `tasks/` is a design-build-test-learn loop gated on two skills
 |---|---|---|
 | Source | A research group's published dataset, and the backends it supports | `sources/<source>/source.toml` |
 | Campaign | Objective, stages, budget, catalogs, deliverable; one Harbor task | `tasks/<domain>/<source>/<campaign>/` |
-| Lab service | Sidecar implementing AS-Bench Lab API v1 for one campaign | `environment/lab/` (vendored `asb_lab`) |
+| Lab service | Sidecar implementing Autonomous Science Bench Lab API v1 for one campaign | `environment/lab/` (vendored `asb_lab`) |
 | Backend | Where measurements come from: `replay`, `twin`, `live` | `campaign.json` → `backend` |
 | Ledger | Every accepted job and deliverable, written by the lab | `/state/ledger.json` in the lab |
 | Deliverable | The agent's final product (e.g. a JS predictor) | `/state/deliverables/` in the lab |
@@ -106,7 +106,7 @@ python tools/vendor_runtime.py
 python tools/vendor_runtime.py --check
 ```
 
-Changes to AS-Bench Lab API v1 must stay backward compatible. A breaking change needs a new `lab_api_version`. Update [runtime/api/openapi.yaml](runtime/api/openapi.yaml) along with the server.
+Changes to Autonomous Science Bench Lab API v1 must stay backward compatible. A breaking change needs a new `lab_api_version`. Update [runtime/api/openapi.yaml](runtime/api/openapi.yaml) along with the server.
 
 ## Adding a backend tier to a campaign
 

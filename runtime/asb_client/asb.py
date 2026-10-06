@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""asb: command-line client for a AS-Bench Lab campaign. Stdlib only.
+"""asb: command-line client for an Autonomous Science Bench Lab campaign. Stdlib only.
 
   asb campaign                          objective, stages, measurements, deliverable
   asb status                            progress and remaining budget

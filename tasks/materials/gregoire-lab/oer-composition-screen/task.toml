@@ -13,20 +13,20 @@ artifacts = [
 name = "as-bench/oer-composition-screen"
 description = "Screen four co-deposited metal-oxide libraries for oxygen-evolution activity over four rounds of 48 compositions against a replay of an 8484-composition droplet-cell screen, then build a model that ranks four-cation compositions that can never be ordered."
 keywords = ["electrocatalysis", "high-throughput-experimentation", "oxygen-evolution", "active-learning", "experimental-design", "ranking", "extrapolation", "caltech"]
-authors = [{ name = "Autonomous Science Benchmark Team", email = "yibo@u.northwestern.edu" }]
+authors = [{ name = "Autonomous Science Bench Team", email = "yibo@u.northwestern.edu" }]
 
 [metadata]
-author_name = "Autonomous Science Benchmark Team"
+author_name = "Autonomous Science Bench Team"
 author_email = "yibo@u.northwestern.edu"
-author_organization = "Autonomous Science Benchmark"
+author_organization = "Autonomous Science Bench"
 domain = "materials"
 source = "gregoire-lab"
 field = "electrocatalysis"
 tags = ["active-learning", "electrocatalysis", "high-throughput-experimentation", "oxygen-evolution", "composition-screening", "experimental-design", "ranking", "extrapolation"]
 expert_time_estimate_hours = 12.0
-relevant_experience = "Campaign designed by the Autonomous Science Benchmark team on the four element systems of the published sequential-learning benchmark of Rohr and colleagues. The graded region is disjoint from the orderable one after six designs that let the campaign sample what it is graded on were all found to have an empty gate window: a model fitted to the free data alone, or to an equal-sized random sample, ranked the evaluation set as well as the adaptive reference. Gates calibrated against non-adaptive selection, single-library selection, a pooled-model campaign, a zero-measurement seed model and twenty-three hand rules over twelve repetitions."
+relevant_experience = "Campaign designed by the Autonomous Science Bench team on the four element systems of the published sequential-learning benchmark of Rohr and colleagues. The graded region is disjoint from the orderable one after six designs that let the campaign sample what it is graded on were all found to have an empty gate window: a model fitted to the free data alone, or to an equal-sized random sample, ranked the evaluation set as well as the adaptive reference. Gates calibrated against non-adaptive selection, single-library selection, a pooled-model campaign, a zero-measurement seed model and twenty-three hand rules over twelve repetitions."
 conflicts_of_interest = "None"
-# Autonomous Science Benchmark campaign fields.
+# Autonomous Science Bench campaign fields.
 backend = "replay"
 lab_api_version = 1
 adapted_from = "doi:10.1039/C9SC05999G (data: CaltechDATA 7b106-nf257, doi:10.22002/D1.1345, CC-BY-4.0)"

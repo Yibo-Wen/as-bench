@@ -1,6 +1,6 @@
 # Evaluating agents and models
 
-AS-Bench evaluates agents the same way terminal-bench-science does. Every run is a **Harbor job**: a set of tasks × (agent, model) pairs × attempts. Harbor starts each trial's containers (agent + lab sidecar), runs the agent, runs the separate verifier, and writes everything to a job directory. This folder adds three thin layers on top:
+Autonomous Science Bench evaluates agents the same way terminal-bench-science does. Every run is a **Harbor job**: a set of tasks × (agent, model) pairs × attempts. Harbor starts each trial's containers (agent + lab sidecar), runs the agent, runs the separate verifier, and writes everything to a job directory. This folder adds three thin layers on top:
 
 | File | Role | terminal-bench-science equivalent |
 |---|---|---|
@@ -65,7 +65,7 @@ The summary groups trials by task and by agent × model × reasoning effort. The
 
 ## Presets
 
-Agent and reasoning-effort settings follow the [Terminal-Bench-Science 0.1 leaderboard](https://snorkel.ai/leaderboard/terminal-bench-science/). Scores on AS-Bench can therefore be read against each model's TB-Science rank (in brackets).
+Agent and reasoning-effort settings follow the [Terminal-Bench-Science 0.1 leaderboard](https://snorkel.ai/leaderboard/terminal-bench-science/). Scores on Autonomous Science Bench can therefore be read against each model's TB-Science rank (in brackets).
 
 | Preset | Agent | Model id | Effort | Key |
 |---|---|---|---|---|
@@ -96,7 +96,7 @@ Agent and reasoning-effort settings follow the [Terminal-Bench-Science 0.1 leade
 | `open-small` | qwen3.8-27b, glm-5.3-flash, minimax-m3 | small open-weight models, one OpenRouter key |
 | `mid` | claude-sonnet-5.5, gpt-5.6-terra, grok-4.7, glm-5.3, kimi-k3, deepseek-v4-pro | |
 | `frontier` | gpt-6-astra, claude-opus-5.5, claude-fable-5.1, gpt-5.6-sol | highest cost per trial |
-| `tbs-leaderboard` | the 15 reproducible leaderboard entries | calibrate AS-Bench against TB-Science |
+| `tbs-leaderboard` | the 15 reproducible leaderboard entries | calibrate Autonomous Science Bench against TB-Science |
 | `harness` | haiku, luna, gemini flash, all under mini-swe-agent | compare models with the agent scaffold held fixed |
 
 Notes:

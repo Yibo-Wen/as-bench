@@ -12,7 +12,7 @@ throughout.
   doi:10.5281/zenodo.4321713, **CC-BY-SA-4.0**
   (https://github.com/open-reaction-database/ord-data, mirrored on Hugging Face)
 
-AS-Bench replays this group's published yields; it cannot send
+Autonomous Science Bench replays this group's published yields; it cannot send
 jobs to the platform. Campaigns built on this source support the replay backend only.
 
 Three properties of the released data shape how it can be used.

@@ -1,7 +1,7 @@
-<h1 align="center">Autonomous Science Benchmark</h1>
+<h1 align="center">Autonomous Science Bench</h1>
 
 <p align="center">
-  <strong>Autonomous Science Benchmark</strong> (AS-Bench) evaluates AI agents for <strong>autonomous scientific discovery</strong> on real experimental workflows. Its campaigns are built on <strong>published experiments</strong> from research groups in biology, chemistry, and materials science, replayed or simulated behind a <strong>budgeted lab interface</strong>.
+  <strong>Autonomous Science Bench</strong> evaluates AI agents for <strong>autonomous scientific discovery</strong> on real experimental workflows. Its campaigns are built on <strong>published experiments</strong> from research groups in biology, chemistry, and materials science, replayed or simulated behind a <strong>budgeted lab interface</strong>.
 </p>
 <p align="center">
   It is an <strong>interactive benchmark, not a dataset</strong>: an agent passes a campaign only if it both <strong>discovers</strong> good designs with the experiments it chooses and <strong>learns</strong> a model that ranks designs it never measured.
@@ -47,11 +47,11 @@ Autonomous laboratories close the loop between AI reasoning and the physical wor
 - **Know the limits.** Recognize when the data cannot support a confident conclusion.
 - **Respect the lab.** Stay within feasible operations, experimental costs, and measurement limits.
 
-AS-Bench measures this through bounded **campaigns**. Each campaign gives an agent a scientific objective, an experimental interface, and a limited budget; success is what it achieves with the evidence and resources available. Each lab service supplies a structured interface, traceable execution, and measurable outcomes, and every gate is calibrated against baselines on the real data, so passing means real progress.
+Autonomous Science Bench measures this through bounded **campaigns**. Each campaign gives an agent a scientific objective, an experimental interface, and a limited budget; success is what it achieves with the evidence and resources available. Each lab service supplies a structured interface, traceable execution, and measurable outcomes, and every gate is calibrated against baselines on the real data, so passing means real progress.
 
 ## An interactive benchmark, not a dataset
 
-Every campaign exposes a **stateful, budgeted lab service** to the agent through one API, AS-Bench Lab API v1. The service decides what may be ordered, when, and at what cost, and it records every job in a ledger that the verifier later checks. The measurements come from a pluggable **backend**:
+Every campaign exposes a **stateful, budgeted lab service** to the agent through one API, Autonomous Science Bench Lab API v1. The service decides what may be ordered, when, and at what cost, and it records every job in a ledger that the verifier later checks. The measurements come from a pluggable **backend**:
 
 | Tier | Backend | Where measurements come from | Status |
 |---|---|---|---|
@@ -87,7 +87,7 @@ runtime/             shared lab service, agent CLI, and verifier helpers (source
   asb_client/asb.py  `asb` CLI used by agents
   asb_verify/        ledger checks, ranking metrics, JS sandbox, reward writers
   sandbox/           Deno runner for untrusted JavaScript deliverables
-  api/openapi.yaml   AS-Bench Lab API v1
+  api/openapi.yaml   Autonomous Science Bench Lab API v1
   tests/             runtime unit tests
 sources/<source>/    source cards (source.toml + README) for the groups whose published data back campaigns
 tasks/<domain>/<source>/<campaign>/    Harbor tasks, one per campaign
@@ -138,12 +138,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) to add a source or a campaign.
 
 ## Citation
 
-If you use the Autonomous Science Benchmark, please cite it. The arXiv identifier will be added when the preprint is released.
+If you use the Autonomous Science Bench, please cite it. The arXiv identifier will be added when the preprint is released.
 
 ```bibtex
 @misc{asbench2026,
-      title={Autonomous Science Benchmark: Evaluating {AI} Agents for Autonomous Scientific Discovery},
-      author={{Autonomous Science Benchmark Team}},
+      title={Autonomous Science Bench: Evaluating {AI} Agents for Autonomous Scientific Discovery},
+      author={{Autonomous Science Bench Team}},
       year={2026},
       eprint={TODO},
       archivePrefix={arXiv},
@@ -154,4 +154,4 @@ If you use the Autonomous Science Benchmark, please cite it. The arXiv identifie
 
 ## Acknowledgements
 
-AS-Bench's task format and verifier conventions, and two archived campaigns (protein-active-learning and inverse-lithography), are adapted from [terminal-bench-science](https://github.com/harbor-framework/terminal-bench-science) (Apache-2.0). See [NOTICE](NOTICE).
+Autonomous Science Bench's task format and verifier conventions, and two archived campaigns (protein-active-learning and inverse-lithography), are adapted from [terminal-bench-science](https://github.com/harbor-framework/terminal-bench-science) (Apache-2.0). See [NOTICE](NOTICE).

@@ -1,4 +1,4 @@
-# Agent × model presets for AS-Bench evaluation runs.
+# Agent × model presets for Autonomous Science Bench evaluation runs.
 #
 # Same idea as terminal-bench-science's .github/llm-config.yml (`harbor_run.agents`):
 # each preset is one Harbor agent + one model, plus optional agent kwargs and
@@ -9,7 +9,7 @@
 #
 # Agent + reasoning-effort pairings follow the Terminal-Bench-Science 0.1
 # leaderboard (snorkel.ai/leaderboard/terminal-bench-science, Sept 2026), so
-# AS-Bench numbers can be read against it.
+# Autonomous Science Bench numbers can be read against it.
 #
 # Model names:
 #   * Vendor CLIs (claude-code, codex, grok-build) take the vendor's bare model id.

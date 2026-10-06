@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
-  title: AS-Bench Lab API
+  title: Autonomous Science Bench Lab API
   version: "1"
   description: >
-    Agent-facing API of a AS-Bench campaign lab. Identical for replay, digital
+    Agent-facing API of an Autonomous Science Bench campaign lab. Identical for replay, digital
     twin, and live backends. Every error response is {"ok": false, "error": str}.
     Rejected requests (4xx/5xx) never consume budget or advance a stage.
 servers:

@@ -13,7 +13,7 @@ where lower is better.
   (`tri_data_share.pck`, 764,549 B)
 - Benchmark code: https://github.com/SantoshSuram-TRI/ACE-I, CC-BY-4.0
 
-AS-Bench replays this group's published measurements; it cannot
+Autonomous Science Bench replays this group's published measurements; it cannot
 send jobs to the droplet cell. Campaigns built on this source support the replay backend
 only.
 

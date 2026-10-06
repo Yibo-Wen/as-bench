@@ -1,4 +1,4 @@
-"""Verifier helpers for AS-Bench campaigns. Stdlib only.
+"""Verifier helpers for Autonomous Science Bench campaigns. Stdlib only.
 
 Source of truth: ``runtime/asb_verify`` in the as-bench repository. Task copies
 are vendored by ``tools/vendor_runtime.py``; edit the source, not the copies.

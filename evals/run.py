@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run agent × model presets on AS-Bench campaigns through Harbor.
+"""Run agent × model presets on Autonomous Science Bench campaigns through Harbor.
 
   uv run python evals/run.py --suite sanity --env docker
   uv run python evals/run.py --preset claude-haiku --preset gpt-mini -k 3 --env modal

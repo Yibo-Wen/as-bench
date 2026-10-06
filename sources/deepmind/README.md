@@ -14,7 +14,7 @@ counts, per-round enrichment factors, library-design provenance, a homolog align
 - Data and code: https://github.com/google-deepmind/nuclease_design, bucket `gs://nuclease_design`
   (software Apache-2.0, all other materials CC-BY-4.0)
 
-AS-Bench replays this group's published activity calls; it cannot
+Autonomous Science Bench replays this group's published activity calls; it cannot
 send jobs to the group's lab. Campaigns built on this source support the replay backend
 only.
 

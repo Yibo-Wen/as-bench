@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy the shared AS-Bench runtime into every campaign task.
+"""Copy the shared Autonomous Science Bench runtime into every campaign task.
 
 Harbor publishes each task directory on its own, so a task cannot import code
 from outside itself. ``runtime/`` is the single source of truth; this tool

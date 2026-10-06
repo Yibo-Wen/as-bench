@@ -83,7 +83,7 @@ Additivity also does not transfer: on the 78 unbiased higher-order variants in r
 Spearman between an additive prediction from measured singles and the measured lead response
 is **−0.231**.
 
-## AS-Bench conversion
+## Autonomous Science Bench conversion
 
 - **Objective.** `lead_response` if `zinc_response` ≤ 1.0, else 0. The ceiling of 1.0 is the
   study's own screening criterion, whose column header in `Figure 4` reads "Norm FC at Pb > 1
@@ -126,7 +126,7 @@ is **−0.231**.
 ## Known exposure
 
 The evaluation values are one unauthenticated HTTP request from the publisher's static host,
-and agent containers have public network access in every AS-Bench task. The reference
+and agent containers have public network access in every Autonomous Science Bench task. The reference
 sequence is one similarity search from naming the protein. This is therefore a development
 benchmark; a leaderboard version needs measurements the group has not published. The
 deliverable is capped at 1 MiB, above the ~48 KB a 332-sequence lookup table would need, so

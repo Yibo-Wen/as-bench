@@ -10,7 +10,7 @@ RUN python3 -m pip install --no-cache-dir \
     joblib==1.5.3 \
     threadpoolctl==3.6.0
 
-# AS-Bench Lab client: `asb` talks to the lab sidecar at ASB_LAB_URL.
+# Autonomous Science Bench Lab client: `asb` talks to the lab sidecar at ASB_LAB_URL.
 COPY asb/ /opt/asb/
 RUN printf '#!/bin/sh\nexec python3 /opt/asb/asb.py "$@"\n' > /usr/local/bin/asb && \
     chmod 755 /usr/local/bin/asb

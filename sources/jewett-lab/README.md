@@ -14,7 +14,7 @@ under CC-BY-4.0 in the paper's Source Data:
 - Earlier library: Ekas et al., *ACS Synth. Biol.* (2024), doi:10.1021/acssynbio.4c00456
 - Data: the article's Source Data and Supplementary Data 1 spreadsheets
 
-AS-Bench replays this group's published measurements; it cannot
+Autonomous Science Bench replays this group's published measurements; it cannot
 send jobs to the group's lab. Campaigns built on this source support the replay backend
 only, because every value is a recorded measurement and the study ships no surrogate model.
 
