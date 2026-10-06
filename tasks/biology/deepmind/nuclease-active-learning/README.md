@@ -8,7 +8,7 @@ Run a four-round droplet-sorting campaign on nuclease variants, 96 variants per 
 |---|---|
 | **Source** | [deepmind](../../../../sources/deepmind/README.md) (published data) |
 | **Backend** | replay (the study's merged four-class activity landscape) |
-| **Author** | Autonomous Science Benchmark Team (AS-Bench) — yibo@u.northwestern.edu |
+| **Author** | Autonomous Science Benchmark Team — yibo@u.northwestern.edu |
 | **Domain** | biology / deepmind / protein-engineering |
 | **Tags** | `active-learning` `protein-fitness` `ordered-class-labels` `experimental-design` `ranking` `hit-diversity` |
 | **Budget** | 4 rounds × 96 variants (384) from a 20000-variant shared pool |
@@ -39,7 +39,7 @@ The budget is 384 of 20,000 — 1.9% of the pool. Random screening finds about 7
 
 ## Campaign interface
 
-The agent container holds only public data and the `asb` client. The lab runs as a separate `lab` sidecar on an internal network and implements AS-Bench Lab API v1 (`runtime/api/openapi.yaml`).
+The agent container holds only public data and the `asb` client. The lab runs as a separate `lab` sidecar on an internal network and implements Autonomous Science Benchmark Lab API v1 (`runtime/api/openapi.yaml`).
 
 The campaign uses a **shared-pool catalog**: all four rounds list the same `catalog/pool.csv`, and the lab rejects — with 400 and no round consumed — any variant already screened in an earlier accepted batch. Design IDs are opaque SHA-256-derived strings, so the catalog carries no signal beyond the sequence. Each round takes exactly 96 distinct IDs and returns `variant_id,activity_class`. The lab enforces round order and batch size, replays the latest batch idempotently, records every accepted job in `/state/ledger.json`, and accepts the deliverable only after all four rounds.
 

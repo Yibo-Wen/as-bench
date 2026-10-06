@@ -18,7 +18,7 @@ authors = [{ name = "Autonomous Science Benchmark Team", email = "yibo@u.northwe
 [metadata]
 author_name = "Autonomous Science Benchmark Team"
 author_email = "yibo@u.northwestern.edu"
-author_organization = "AS-Bench"
+author_organization = "Autonomous Science Benchmark"
 domain = "biology"
 source = "jewett-lab"
 field = "biosensor-engineering"
@@ -26,7 +26,7 @@ tags = ["active-learning", "protein-engineering", "biosensor", "multi-objective"
 expert_time_estimate_hours = 8.0
 relevant_experience = "Campaign designed by the Autonomous Science Benchmark team on the published 2,024-variant cell-free PbrR biosensor screen of the Jewett, Shukla, and Lucks groups, replaying the study's unbiased round-0 library, with gates calibrated against random, coverage-only, lead-only, and static-prior baselines over 30 splits."
 conflicts_of_interest = "None"
-# AS-Bench campaign fields.
+# Autonomous Science Benchmark campaign fields.
 backend = "replay"
 lab_api_version = 1
 adapted_from = "doi:10.1038/s41467-025-66964-6 (Source Data and Supplementary Data 1, CC-BY-4.0)"
