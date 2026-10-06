@@ -21,7 +21,7 @@ results/
 │       ├── verifier/             reward.txt, metrics.json (NDCG, P@50, campaign progress), ctrf.json
 │       └── artifacts/
 ├── trials.csv                    one row per trial, all jobs
-└── summary.md                    per-task table: pass rate, metrics mean (max), cost, time
+└── summary.md                    per-task table: passes, gated metrics mean (best), total cost and time
 ```
 
 ## Setup (once)
