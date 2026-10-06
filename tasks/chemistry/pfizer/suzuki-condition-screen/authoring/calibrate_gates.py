@@ -18,8 +18,8 @@ Gate rules, as recorded in README.md "Verification":
   4. every evaluation set holds at least TOP_K relevant wells.
 
 Split 0 is the shipped fixture (--split-seed 90000). Splits 1.. vary the pool/evaluation
-partition only; the published chloride screen is fixed by design, for the reason given
-in NOTES.local.md "Why the seed is the chloride screen" (local).
+partition only; the published chloride screen is fixed by design, for the reason
+recorded in this campaign's authoring notes.
 
 Usage:
     python authoring/calibrate_gates.py --splits 24 --source aap9112_Data_File_S1.xlsx

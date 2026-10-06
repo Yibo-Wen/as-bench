@@ -10,7 +10,7 @@
 
 Replays the reference strategy and every baseline against the recorded measurements,
 without the lab, over alternative pool/evaluation splits. Prints the markdown table that
-goes into README.md's Verification section, then asserts the four calibration rules and
+records this campaign's calibration, then asserts the four calibration rules and
 exits non-zero if any fails.
 
 The strategy baselines spend the campaign budget and deliver a predictor. The rank-only

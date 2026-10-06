@@ -41,7 +41,7 @@ timeout_sec = 28800.0
 # (see the _compose_paths docstring in harbor/environments/docker/docker.py). The
 # declaration therefore cost one container per trial and filtered nothing, so it is gone.
 # Every measurement replayed here is published anyway; this is a development replay, not
-# a secret leaderboard test. See NOTES.local.md "Data leakage" (local).
+# a secret leaderboard test.
 
 [verifier]
 # The predictor is scored once per evaluation composition in a fresh Deno worker; 5039

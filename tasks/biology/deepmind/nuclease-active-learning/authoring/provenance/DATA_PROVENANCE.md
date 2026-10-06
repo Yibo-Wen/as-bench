@@ -120,7 +120,7 @@ exist only in the lab image; evaluation sequences and classes only in the verifi
 All 55,760 activity classes are public in a single unauthenticated file keyed by the exact
 sequence this campaign publishes in its catalog, and the agent phase has **no** egress
 restriction: an allowlist was declared and removed because Harbor cannot apply it to a
-service with task-authored networking. See `NOTES.local.md` "Data leakage" (local). This is a
+service with task-authored networking. This is a
 development replay: the partition is ours and unpublished, but the labels are not secret.
 
 ## Output checksums
