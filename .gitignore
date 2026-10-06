@@ -10,6 +10,10 @@ __pycache__/
 *.tmp
 *.log
 
+# Author's notes kept beside a task: calibration history, measured model scores,
+# and open problems. The committed README.md is the public page.
+NOTES.local.md
+
 # Editors, OS, and local agent settings
 .DS_Store
 .idea/
