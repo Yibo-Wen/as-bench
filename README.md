@@ -76,6 +76,7 @@ Every campaign is a design-build-test-learn loop gated on two skills, and the re
 | [propylene-active-learning](tasks/chemistry/sargent-lab/propylene-active-learning/README.md) | [Sargent lab](sources/sargent-lab/README.md) | chemistry | twin | 3 × 20 dilute-alloy designs |
 | [suzuki-condition-screen](tasks/chemistry/pfizer/suzuki-condition-screen/README.md) | [Pfizer](sources/pfizer/README.md) | chemistry | replay | 4 × 48 reaction-condition wells |
 | [oer-composition-screen](tasks/materials/gregoire-lab/oer-composition-screen/README.md) | [Gregoire group](sources/gregoire-lab/README.md) | materials | replay | 4 × 48 oxide compositions |
+| [coercivity-peak-search](tasks/materials/kusne-lab/coercivity-peak-search/README.md) | [Kusne group](sources/kusne-lab/README.md) | materials | replay | 4 × 16 alloy compositions |
 
 Campaigns outside that scope are kept in [archive/](archive/README.md). They still run, but they are not in the dataset or the evaluation runs.
 

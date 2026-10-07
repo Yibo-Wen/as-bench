@@ -23,16 +23,19 @@ def test_task_discovery_and_selection():
         "biology/jewett-lab/biosensor-active-learning",
         "chemistry/pfizer/suzuki-condition-screen",
         "chemistry/sargent-lab/propylene-active-learning",
-        "materials/gregoire-lab/oer-composition-screen"]
+        "materials/gregoire-lab/oer-composition-screen",
+        "materials/kusne-lab/coercivity-peak-search"]
     # archive/ is never scanned, even for campaigns missing from the dataset.
     assert run.discover_tasks(include_unlisted=True) == tasks
     assert run.select_tasks(tasks, ["biology/deepmind/*"]) == [tasks[0]]
     assert run.select_tasks(tasks, ["biology/jewett-lab/*"]) == [tasks[1]]
     assert run.select_tasks(tasks, ["chemistry/*"]) == [tasks[2], tasks[3]]
     assert run.select_tasks(tasks, ["chemistry/pfizer/*"]) == [tasks[2]]
-    assert run.select_tasks(tasks, ["materials/*"]) == [tasks[4]]
+    assert run.select_tasks(tasks, ["materials/*"]) == [tasks[4], tasks[5]]
     assert run.select_tasks(tasks, ["materials/gregoire-lab/*"]) == [tasks[4]]
+    assert run.select_tasks(tasks, ["materials/kusne-lab/*"]) == [tasks[5]]
     assert run.select_tasks(tasks, ["oer-composition-screen"]) == [tasks[4]]
+    assert run.select_tasks(tasks, ["coercivity-peak-search"]) == [tasks[5]]
     assert run.select_tasks(tasks, []) == tasks
     with pytest.raises(SystemExit):
         run.select_tasks(tasks, ["physics/*"])

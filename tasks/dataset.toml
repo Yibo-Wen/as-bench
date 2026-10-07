@@ -47,3 +47,7 @@ digest = "sha256:056eb5eb5285952e1e9e9d9d6cae0d63b8c1e61117ffcea7b85f962450ff225
 [[tasks]]
 name = "as-bench/oer-composition-screen"
 digest = "sha256:3de4b88acf1084f2f8daee0c768d58f63e74b8b4e14ead7338f8a2e6cac2064b"
+
+[[tasks]]
+name = "as-bench/coercivity-peak-search"
+digest = "sha256:cdd482685582b90ac3b9066247f4db1e49f7b5d1b5e5f01267b81cf0cfc787cb"

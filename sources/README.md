@@ -10,6 +10,7 @@ exist and must name at least one dataset with a DOI and license.
 |---|---|---|---|---|
 | [deepmind](deepmind/README.md) | biology | protein-engineering, directed-evolution | replay | 1 |
 | [gregoire-lab](gregoire-lab/README.md) | materials | electrocatalysis, high-throughput-experimentation | replay | 1 |
+| [kusne-lab](kusne-lab/README.md) | materials | magnetic-materials, combinatorial-thin-films | replay | 1 |
 | [jewett-lab](jewett-lab/README.md) | biology | cell-free-expression, biosensor-engineering | replay | 1 |
 | [pfizer](pfizer/README.md) | chemistry | reaction-screening, high-throughput-experimentation | replay | 1 |
 | [sargent-lab](sargent-lab/README.md) | chemistry | electrocatalysis, co2-reduction | replay, twin | 1 |
