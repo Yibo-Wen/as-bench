@@ -38,8 +38,8 @@ MAX_BYTES = 2 * 1024 * 1024
 MAX_MODEL_BYTES = 1024 * 1024
 VARIANT = re.compile(r"^[A-Z][1-9][0-9]{0,2}[A-Z](_[A-Z][1-9][0-9]{0,2}[A-Z])*$")
 GATES = {
-    "discovery_hits": 17,
-    "ndcg_at_20": 0.50,
+    "discovery_hits": 21,
+    "ndcg_at_20": 0.70,
 }
 
 

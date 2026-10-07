@@ -13,8 +13,10 @@ Gate rules, as recorded in README.md "Verification":
      the zero-measurement seed model, the best-ligand, best-base, best-solvent,
      additive-main-effects, copy-the-seed-surface, substrate-preference and
      random-score predictors fail the ranking gate on >= 90% of splits;
-  3. the discovery gate asks for at most half of the pool's standout conditions, and
-     the ranking gate for at most half of a perfect rank;
+  3. the discovery gate asks for at most half of the pool's standout conditions. The
+     ranking gate carries no absolute ceiling: rule 1 bounds it at the reference's
+     split-0 score divided by 1.1, because a flat fraction of a perfect NDCG is not a
+     fraction of the achievable difficulty;
   4. every evaluation set holds at least TOP_K relevant wells.
 
 Split 0 is the shipped fixture (--split-seed 90000). Splits 1.. vary the pool/evaluation
@@ -234,8 +236,7 @@ def main() -> int:
     if GATES["standout_conditions"] > min(w["pool_standout"] for w in witness) / 2:
         failures.append("rule 3: the discovery gate asks for more than half of the "
                         "pool's standout conditions")
-    if GATES["ndcg_at_100"] > 0.5:
-        failures.append("rule 3: the ranking gate asks for more than half of a perfect rank")
+    # The ranking gate has no absolute ceiling; rule 1 bounds it against the reference.
     for entry in witness:
         if entry["relevant"] < TOP_K:
             failures.append(f"rule 4: split {entry['seed_index']} holds "

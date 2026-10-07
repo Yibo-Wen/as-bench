@@ -15,9 +15,11 @@ Gate rules, as recorded in README.md "Verification":
      on >= 90% of splits; the seed-only, zero-shot alignment, substitution-count
      (= model_template.js), random-score, and constant predictors fail the ranking gate
      on >= 90% of splits;
-  3. the discovery gate asks for at most half of the pool's hits, the family gate for at
-     most half of the families those hits span, and the ranking gate for at most half of
-     a perfect rank;
+  3. the discovery gate asks for at most half of the pool's hits, and the family gate for
+     at most half of the families those hits span. The ranking gate carries no absolute
+     ceiling: rule 1 bounds it at the reference's shipped-split score divided by 1.1,
+     because a flat fraction of a perfect NDCG is not a fraction of the achievable
+     difficulty, and demanding one held the gate below what every measured agent clears;
   4. every evaluation set holds at least TOP_K relevant designs.
 
 Usage:
@@ -313,8 +315,7 @@ def main() -> int:
         failures.append("rule 3: the discovery gate asks for more than half of the pool's hits")
     if GATES["distinct_hit_families"] > min(w["pool_families"] for w in witness) / 2:
         failures.append("rule 3: the family gate asks for more than half of the pool's families")
-    if GATES["ndcg_at_100"] > 0.5:
-        failures.append("rule 3: the ranking gate asks for more than half of a perfect rank")
+    # The ranking gate has no absolute ceiling; rule 1 bounds it against the reference.
     for entry in witness:
         if entry["relevant"] < TOP_K:
             failures.append(f"rule 4: split {entry['seed']} holds {entry['relevant']} "

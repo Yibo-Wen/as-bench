@@ -13,8 +13,10 @@
 2. Non-adaptive campaign strategies fail the joint gate on at least 90% of repetitions,
    and rank-only predictors - which run no experiments at all - fail the ranking gate on
    at least 90%.
-3. The discovery gate asks for at most half a perfect score, and the ranking gate for at
-   most half a perfect ranking.
+3. The discovery gate asks for at most half a perfect score. The ranking gate carries no
+   absolute ceiling: rule 1 bounds it at the reference's shipped-fixture score divided by
+   1.1, because a flat fraction of a perfect NDCG is not a fraction of the achievable
+   difficulty.
 4. The evaluation set holds at least TOP_K relevant designs.
 
 The regions are fixed by cation count, so there is no pool/evaluation split to resample.
@@ -276,9 +278,9 @@ def main() -> int:
 
     print("\nrule 3 - the gates ask for at most half")
     perfect = VERIFY.CAP_PER_LIBRARY * len(expected["libraries"])
+    # The ranking gate has no absolute ceiling; rule 1 bounds it against the reference.
     checks = [("standout_catalysts", gates["standout_catalysts"], perfect / 2,
-               f"half a perfect capped score ({perfect})"),
-              ("ndcg_at_100", gates["ndcg_at_100"], 0.5, "half a perfect ranking")]
+               f"half a perfect capped score ({perfect})")]
     for key, value, limit, label in checks:
         good = value <= limit
         ok &= good
