@@ -149,7 +149,7 @@ def test_trials_are_regraded_against_todays_gates(tmp_path):
     summarize(["--results-dir", str(tmp_path)])
     summary = (tmp_path / "summary.md").read_text()
     assert "| nop | – | 0/2 |" in summary
-    assert "1 trial(s) were scored under different gates and are regraded here." in summary
+    assert "regraded" not in summary          # the table says it, without a note line
     rows = {r["trial"]: r for r in csv.DictReader((tmp_path / "trials.csv").open())}
     assert rows["stale"]["reward"] == "1"   # trials.csv keeps what Harbor recorded
 

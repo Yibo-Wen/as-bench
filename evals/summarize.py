@@ -227,8 +227,6 @@ def aggregate(rows: list[dict]) -> dict[str, dict]:
                 "infra": len(group) - len(trials),
                 "passed": sum(r >= 1 for r in rewards),
                 "pass_rate": _mean(rewards),
-                "regraded": sum(value is not None and value != float(t["reward"] or 0)
-                                for t, value in zip(trials, graded)),
                 "errors": sum(bool(t["exception"]) for t in trials),
                 "cost_usd": _sum([t["cost_usd"] for t in trials if t["cost_usd"] is not None]),
                 "agent_minutes": _sum([t["agent_minutes"] for t in trials if t["agent_minutes"] is not None]),
@@ -277,12 +275,8 @@ def render_markdown(summary: dict[str, dict], n_trials: int) -> str:
         gates, metric_keys = table["gates"], table["metrics"]
         names = [f"{k} {gates[k][0]} {gates[k][1]:g}" if k in gates else k for k in metric_keys]
         header = ["agent", "model", "pass", *names, "cost $", "agent min"]
-        lines += ["", f"## {task}", ""]
-        regraded = sum(e["regraded"] for e in table["entries"])
-        if regraded:
-            lines += [f"{regraded} trial(s) were scored under different gates and are "
-                      "regraded here.", ""]
-        lines += ["| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
+        lines += ["", f"## {task}", "",
+                  "| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
         for e in table["entries"]:
             passed = f"{e['passed']}/{e['trials']}"
             if e["infra"]:
