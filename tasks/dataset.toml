@@ -50,4 +50,4 @@ digest = "sha256:3de4b88acf1084f2f8daee0c768d58f63e74b8b4e14ead7338f8a2e6cac2064
 
 [[tasks]]
 name = "as-bench/coercivity-peak-search"
-digest = "sha256:cdd482685582b90ac3b9066247f4db1e49f7b5d1b5e5f01267b81cf0cfc787cb"
+digest = "sha256:5d2196bae5b5b3b9cca526bba8f8e0c9620167ce9143d513acde882d5ef89a49"
