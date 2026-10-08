@@ -1,4 +1,4 @@
-<h1 align="center">Autonomous Science Bench</h1>
+<h1 align="center">Autonomous Science Bench v0.1</h1>
 
 <p align="center">
   <strong>Autonomous Science Bench</strong> evaluates AI agents for <strong>autonomous scientific discovery</strong> on real experimental workflows. Its campaigns are built on <strong>published experiments</strong> from research groups in biology, chemistry, and materials science, replayed or simulated behind a <strong>budgeted lab interface</strong>.
