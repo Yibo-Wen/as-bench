@@ -13,8 +13,14 @@ authoring/calibrate_gates.py over repeated campaigns):
 * **A Gaussian process, not a forest.** These landscapes are smooth - a composition's
   overpotential correlates with the mean of its grid neighbours at r = 0.84 to 0.94 - so
   an interpolating kernel fits them far better than piecewise-constant trees. The kernel
-  is an RBF plus a linear term, and the endmembers enter with a larger per-point noise
-  so they anchor the scale without dominating the fit.
+  is a pure RBF, and the endmembers enter with a larger per-point noise so they anchor
+  the scale without dominating the fit.
+* **No linear term.** An added DotProduct made the fit strictly worse, and removing it
+  lifts every statistic of the reference's ranking: on the shipped fixture 0.588 to
+  0.606, and over twelve presentation orders the median 0.536 to 0.546, the worst 0.421
+  to 0.437 and the best 0.593 to 0.608, with standouts 61 to 63. The RBF already carries
+  the composition trend through `normalize_y`; the extra global slope only pulled the
+  four-cation extrapolation toward each library's mean.
 * **Regress the overpotential, not the normalised score.** The normalised target is
   flat over most of the space; the raw measurement carries the gradient. The exported
   score is normalised afterwards with cutoffs read off the model's own predictions over
@@ -69,8 +75,10 @@ SEED_ALPHA = 4.0e-3
 # A fixed kernel makes the reference deterministic.
 LENGTH_SCALE = 0.15
 SIGNAL_VARIANCE = 1.0
-LINEAR_SIGMA = 0.1
-USE_LINEAR_TERM = True
+LINEAR_SIGMA = 0.1      # only read when the linear term is on
+# Off: the RBF alone ranks better on the fixture and on every repetition measured, and
+# the margin it buys is what keeps a plain greedy campaign out of the ranking gate.
+USE_LINEAR_TERM = False
 MIN_FIT = 8             # rows before a library gets its own model
 TOP_N = 200             # must match the campaign's ranking cutoff
 ANCHOR_RANK = 5
@@ -118,9 +126,9 @@ def global_matrix(rows: list[dict]) -> np.ndarray:
 def fit(features: np.ndarray, values: np.ndarray, alpha: np.ndarray):
     """A Gaussian process on a smooth, low-dimensional composition landscape.
 
-    RBF for the local interpolation plus a linear term for the overall composition
-    trend; per-point noise lets the endmembers be down-weighted. normalize_y handles
-    the offset between libraries.
+    A pure RBF for the local interpolation; per-point noise lets the endmembers be
+    down-weighted, and normalize_y handles the offset between libraries. The optional
+    linear term is off: it cost the reference ranking on every repetition measured.
     """
     kernel = ConstantKernel(SIGNAL_VARIANCE, "fixed") * RBF(LENGTH_SCALE, "fixed")
     if USE_LINEAR_TERM:

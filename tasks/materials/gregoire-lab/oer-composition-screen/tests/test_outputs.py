@@ -50,7 +50,7 @@ DESIGN = re.compile(r"^[A-Z][a-z]?(?:-[A-Z][a-z]?){5}\|(?:[A-Z][a-z]?0?\.?[0-9]+
 MEASUREMENT = "overpotential_v"
 GATES = {
     "standout_catalysts": 55,
-    "ndcg_at_100": 0.50,
+    "ndcg_at_100": 0.55,
 }
 
 

@@ -11,6 +11,12 @@ from .paths import LOGS_DIR
 
 # A gate is a lower bound (a number, or {"min": x}) or an upper bound ({"max": x}).
 
+#: Slack on every gate comparison, so a score that equals its gate in exact arithmetic
+#: still passes after binary rounding. Scores built from fractions land a little off:
+#: 0.5 * 6 / 10 + 0.5 * 14 / 20 is 0.65 exactly, but 0.6499999999999999 in float.
+#: evals/summarize.py applies the same slack when it regrades.
+GATE_TOLERANCE = 1e-12
+
 
 def _bound(gate) -> tuple[str, float]:
     if isinstance(gate, dict):
@@ -23,7 +29,9 @@ def _bound(gate) -> tuple[str, float]:
 
 def gate_passes(value: float, gate) -> bool:
     direction, bound = _bound(gate)
-    return value >= bound if direction == "min" else value <= bound
+    if direction == "min":
+        return value >= bound - GATE_TOLERANCE
+    return value <= bound + GATE_TOLERANCE
 
 
 def evaluate_gates(metrics: dict, gates: dict) -> dict:
