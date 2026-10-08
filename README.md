@@ -64,19 +64,19 @@ Swapping the backend does not change the instruction, the `asb` commands, or the
 ## Campaigns
 
 <p align="center">
-  <img src="docs/assets/task-format.png" width="880" alt="One campaign: from a starting batch of measured wells, the agent picks a batch, the lab returns results, the agent refits its model, and the loop repeats for a fixed number of rounds.">
+  <img src="docs/assets/overview.png" width="900" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
 </p>
 
 Every campaign is a design-build-test-learn loop gated on two skills, and the reward is 1 only if every gate passes: **discovery**, judged on what the agent chose to measure, and **learning**, judged on the model it delivers, scored on designs it never measured.
 
-| Campaign | Source | Domain | Backend | Budget |
-|---|---|---|---|---|
-| [nuclease-active-learning](tasks/biology/deepmind/nuclease-active-learning/README.md) | [DeepMind](sources/deepmind/README.md) | biology | replay | 4 × 96 enzyme variants |
-| [biosensor-active-learning](tasks/biology/jewett-lab/biosensor-active-learning/README.md) | [Jewett lab](sources/jewett-lab/README.md) | biology | replay | 3 × 10 protein variants |
-| [propylene-active-learning](tasks/chemistry/sargent-lab/propylene-active-learning/README.md) | [Sargent lab](sources/sargent-lab/README.md) | chemistry | twin | 3 × 20 dilute-alloy designs |
-| [suzuki-condition-screen](tasks/chemistry/pfizer/suzuki-condition-screen/README.md) | [Pfizer](sources/pfizer/README.md) | chemistry | replay | 4 × 48 reaction-condition wells |
-| [oer-composition-screen](tasks/materials/gregoire-lab/oer-composition-screen/README.md) | [Gregoire group](sources/gregoire-lab/README.md) | materials | replay | 4 × 48 oxide compositions |
-| [coercivity-peak-search](tasks/materials/kusne-lab/coercivity-peak-search/README.md) | [Kusne group](sources/kusne-lab/README.md) | materials | replay | 4 × 16 alloy compositions |
+| Campaign | Source | Domain | Backend | Budget | Gates: discovery / learning |
+|---|---|---|---|---|---|
+| [nuclease-active-learning](tasks/biology/deepmind/nuclease-active-learning/README.md) | [DeepMind](sources/deepmind/README.md) | biology | replay | 4 × 96 enzyme variants | 190 hits in 175 families / NDCG@100 0.42 |
+| [biosensor-active-learning](tasks/biology/jewett-lab/biosensor-active-learning/README.md) | [Jewett lab](sources/jewett-lab/README.md) | biology | replay | 3 × 10 protein variants | 21 hits / NDCG@20 0.70 |
+| [propylene-active-learning](tasks/chemistry/sargent-lab/propylene-active-learning/README.md) | [Sargent lab](sources/sargent-lab/README.md) | chemistry | twin | 3 × 20 dilute-alloy designs | 7 hits / NDCG@20 0.52 |
+| [suzuki-condition-screen](tasks/chemistry/pfizer/suzuki-condition-screen/README.md) | [Pfizer](sources/pfizer/README.md) | chemistry | replay | 4 × 48 reaction-condition wells | 32 standout wells / NDCG@100 0.37 |
+| [oer-composition-screen](tasks/materials/gregoire-lab/oer-composition-screen/README.md) | [Gregoire group](sources/gregoire-lab/README.md) | materials | replay | 4 × 48 oxide compositions | 55 standout oxides / NDCG@100 0.55 |
+| [coercivity-peak-search](tasks/materials/kusne-lab/coercivity-peak-search/README.md) | [Kusne group](sources/kusne-lab/README.md) | materials | replay | 4 × 16 alloy compositions | 0.60 peak coverage / NDCG@20 0.65 |
 
 Campaigns outside that scope are kept in [archive/](archive/README.md). They still run, but they are not in the dataset or the evaluation runs.
 
