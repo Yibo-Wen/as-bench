@@ -25,7 +25,7 @@
 -->
 
 <p align="center">
-  <img src="docs/assets/overview.png" width="100%" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
+  <img src="docs/assets/campaign-loop.gif" width="100%" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
 </p>
 <p align="center">
   <em>One campaign: the agent orders batches from a budgeted lab and refits its model each round. <strong>Discovery</strong> scores the designs it measured; <strong>learning</strong> scores the model it hands over.</em>
