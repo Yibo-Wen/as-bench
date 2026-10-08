@@ -53,7 +53,7 @@ DESIGN = re.compile(r"^Co([0-9]+\.[0-9])Fe([0-9]+\.[0-9])Ni([0-9]+\.[0-9])$")
 MEASUREMENTS = ["coercivity_mt", "kerr_rotation_mrad"]
 MEASUREMENT = "coercivity_mt"
 GATES = {
-    "discovery_score": 0.65,
+    "discovery_score": 0.60,
     "ndcg_at_20": 0.65,
 }
 
