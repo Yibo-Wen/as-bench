@@ -25,10 +25,10 @@
 -->
 
 <p align="center">
-  <img src="docs/assets/outcomes.png" width="100%" alt="Left: how each configuration's 18 trials end, split into resolved, missed discovery only, missed learning only, and missed both. Opus 5.5 with Claude Code resolves 12 of 18; Haiku 4.5 resolves none. Right: resolution rate against total model cost on a log scale, with the cost frontier running through GPT-5.6 Luna, GPT-5.6 Terra, and Opus 5.5.">
+  <img src="docs/assets/overview.png" width="100%" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
 </p>
 <p align="center">
-  <em><strong>v0.1: 31 of 144 trials pass both gates.</strong> Eight configurations, three trials on each of the six campaigns. Opus 5.5 with Claude Code leads at 12 of 18; the cost frontier runs from GPT-5.6 Luna at $7 to Opus 5.5 at $173. Failures split almost evenly between missing one gate and missing both, and which gate a configuration misses differs sharply between them. See the <a href="https://yibow.me/autonomous-science-bench/leaderboard">full leaderboard</a>.</em>
+  <em>One campaign: the agent orders batches from a budgeted lab and refits its model each round. <strong>Discovery</strong> scores the designs it measured; <strong>learning</strong> scores the model it hands over.</em>
 </p>
 
 It measures how AI systems plan experiments, interpret measurements, and improve their decisions over time, and it evaluates the whole scientific system, from model and agent to tools, memory, and execution harness, on campaigns grounded in real experimental data. The first release sets a common evaluation framework and an initial set of expert-designed campaigns.
@@ -63,11 +63,7 @@ Swapping the backend does not change the instruction, the `asb` commands, or the
 
 ## Campaigns
 
-<p align="center">
-  <img src="docs/assets/overview.png" width="100%" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
-</p>
-
-Every campaign is a design-build-test-learn loop gated on two skills, and the reward is 1 only if every gate passes: **discovery**, judged on what the agent chose to measure, and **learning**, judged on the model it delivers, scored on designs it never measured.
+The reward is 1 only if both gates pass. Learning is always scored on designs the agent never measured, and every campaign sets its own thresholds, calibrated against baselines on the real data.
 
 | Campaign | Source | Domain | Backend | Budget | Gates: discovery / learning |
 |---|---|---|---|---|---|
@@ -79,6 +75,15 @@ Every campaign is a design-build-test-learn loop gated on two skills, and the re
 | [coercivity-peak-search](tasks/materials/kusne-lab/coercivity-peak-search/README.md) | [Kusne group](sources/kusne-lab/README.md) | materials | replay | 4 × 16 alloy compositions | 0.60 peak coverage / NDCG@20 0.65 |
 
 Campaigns outside that scope are kept in [archive/](archive/README.md). They still run, but they are not in the dataset or the evaluation runs.
+
+## Results
+
+<p align="center">
+  <img src="docs/assets/outcomes.png" width="100%" alt="Left: how each configuration's 18 trials end, split into resolved, missed discovery only, missed learning only, and missed both. Opus 5.5 with Claude Code resolves 12 of 18; Haiku 4.5 resolves none. Right: resolution rate against total model cost on a log scale, with the cost frontier running through GPT-5.6 Luna, GPT-5.6 Terra, and Opus 5.5.">
+</p>
+<p align="center">
+  <em><strong>v0.1: 31 of 144 trials pass both gates.</strong> Eight configurations, three trials on each of the six campaigns. Opus 5.5 with Claude Code leads at 12 of 18; the cost frontier runs from GPT-5.6 Luna at $7 to Opus 5.5 at $173. Failures split almost evenly between missing one gate and missing both, and which gate a configuration misses differs sharply between them. See the <a href="https://yibow.me/autonomous-science-bench/leaderboard">full leaderboard</a>.</em>
+</p>
 
 ## Repository layout
 
