@@ -34,7 +34,7 @@ digest = "sha256:291ad927994784f5f938d8da8f30a52088c768e05e9fdf06070b41762153b51
 
 [[tasks]]
 name = "as-bench/propylene-active-learning"
-digest = "sha256:467ef5caa2ddbe647bc49581471782ba2d8a625a9d19cf8132584bb030b5caaa"
+digest = "sha256:fd15085d228a8c26c1e1188b9473dc836272a239611cec583b3640d57ee52ff0"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
