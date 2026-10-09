@@ -4,7 +4,17 @@ title: "Autonomous Science Bench: Evaluating AI Agents for Autonomous Scientific
 type: software
 version: "0.1.0"
 authors:
-  - name: "Autonomous Science Bench Team"
+  - family-names: "Wen"
+    given-names: "Yibo"
+    affiliation: "Northwestern University"
+    email: "yibo@u.northwestern.edu"
+  - family-names: "Liu"
+    given-names: "Han"
+    affiliation: "Northwestern University"
+contact:
+  - family-names: "Liu"
+    given-names: "Han"
+    affiliation: "Northwestern University"
 license: Apache-2.0
 url: "https://yibow.me/autonomous-science-bench"
 repository-code: "https://github.com/Yibo-Wen/as-bench"
