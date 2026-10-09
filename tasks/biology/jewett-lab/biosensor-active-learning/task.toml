@@ -13,7 +13,7 @@ artifacts = [
 name = "as-bench/biosensor-active-learning"
 description = "Engineer a lead-selective metal biosensor over three rounds of cell-free testing, then build a model that ranks untested protein variants by lead response under a zinc-interference constraint."
 keywords = ["protein-engineering", "biosensor", "active-learning", "multi-objective", "ranking", "jewett-lab"]
-authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }]
+authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }, { name = "Autonomous Science Bench Team" }]
 
 [metadata]
 author_name = "Yibo Wen and Han Liu"

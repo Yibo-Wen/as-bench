@@ -13,7 +13,7 @@ artifacts = [
 name = "as-bench/suzuki-condition-screen"
 description = "Screen Suzuki-Miyaura reaction conditions over four rounds of 48 wells against a replay of a 5760-well flow screen, then build a model that ranks untested conditions by how close they come to the best yield reachable for their substrate."
 keywords = ["reaction-screening", "high-throughput-experimentation", "suzuki-coupling", "active-learning", "experimental-design", "ranking", "pfizer"]
-authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }]
+authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }, { name = "Autonomous Science Bench Team" }]
 
 [metadata]
 author_name = "Yibo Wen and Han Liu"

@@ -31,27 +31,30 @@ email = "yibo@u.northwestern.edu"
 name = "Han Liu"
 email = "hanliu@northwestern.edu"
 
+[[dataset.authors]]
+name = "Autonomous Science Bench Team"
+
 
 [[tasks]]
 name = "as-bench/biosensor-active-learning"
-digest = "sha256:956d56c56375c95615ffe5e51bad12c35cc56a3452e2fa2ae51d5333e99175f6"
+digest = "sha256:11bd0cb0193d139c4076b4ba71d260166a3918a4041c59363f11f357114f6d37"
 
 [[tasks]]
 name = "as-bench/propylene-active-learning"
-digest = "sha256:30341434b0cabf40bd423212f2de367f94d8457e7bc0fcc5ef0af0a7a8dfe38b"
+digest = "sha256:fa1f26790cd0154737b57b4083ddb2878af8026180560153b503329ea5519c27"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
-digest = "sha256:17ffd33438dbbd02a51b41460f940ea4a4159d429e7e62515cddaac26dcf3d27"
+digest = "sha256:9c491f5a89cef34cfc8cf16593592a3f870f26b36939163fa63e0a420b115ef5"
 
 [[tasks]]
 name = "as-bench/suzuki-condition-screen"
-digest = "sha256:bdceca95b8f982cbc13bddf1137c66214bbed3e8de9216603cba635cec72b68e"
+digest = "sha256:4302c36295eefea92c03e1d829aa478b11ff3603776b30049a9c2999542984ba"
 
 [[tasks]]
 name = "as-bench/oer-composition-screen"
-digest = "sha256:fcdc09af746c77150b0be3e1b8825c9077625d1c09f9f4dd2f97f518a9dad4c4"
+digest = "sha256:d0d1140c12f4c115b0d784e3ca9de661c2066f77636b679ba49bd71abeecd248"
 
 [[tasks]]
 name = "as-bench/coercivity-peak-search"
-digest = "sha256:d5c67a5b098ac01681a7e368d010e5efa7dc38c2ff9c10c1dfa49ee9891b3f7a"
+digest = "sha256:10acd36940893d4ddc62b9ee34c780a365b98da698009112787fdfe7b89a213d"

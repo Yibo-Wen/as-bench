@@ -13,7 +13,7 @@ artifacts = [
 name = "as-bench/nuclease-active-learning"
 description = "Run a four-round droplet-sorting campaign on nuclease variants, 96 variants per round from a shared pool of 20000, then build a model that ranks unseen variants by activity class."
 keywords = ["protein-engineering", "enzyme-engineering", "active-learning", "directed-evolution", "ranking", "diversity", "deepmind"]
-authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }]
+authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }, { name = "Autonomous Science Bench Team" }]
 
 [metadata]
 author_name = "Yibo Wen and Han Liu"

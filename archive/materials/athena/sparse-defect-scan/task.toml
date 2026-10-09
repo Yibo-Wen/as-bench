@@ -13,7 +13,7 @@ artifacts = [
 name = "as-bench/sparse-defect-scan"
 description = "Steer a scanning microscope over a 128 x 128 field of view with at most 300 adaptively chosen probe positions, then deliver a reconstructed map and the locations of its point defects."
 keywords = ["autonomous-microscopy", "active-learning", "sparse-sampling", "defect-detection", "gaussian-process", "athena"]
-authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }]
+authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }, { name = "Autonomous Science Bench Team" }]
 
 [metadata]
 author_name = "Yibo Wen and Han Liu"
