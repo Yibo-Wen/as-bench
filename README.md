@@ -149,7 +149,7 @@ If you use the Autonomous Science Bench, please cite it. The arXiv identifier wi
 ```bibtex
 @misc{asbench2026,
   title={Autonomous Science Bench: Evaluating {AI} Agents for Autonomous Scientific Discovery},
-  author={Yibo Wen and Han Liu},
+  author={Yibo Wen and Han Liu and {Autonomous Science Bench Team}},
   year={2026},
   howpublished={\url{https://yibow.me/autonomous-science-bench}},
   url={https://yibow.me/autonomous-science-bench},
