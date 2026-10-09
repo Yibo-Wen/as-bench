@@ -144,7 +144,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) to add a source or a campaign.
 
 ## Citation
 
-If you use the Autonomous Science Bench, please cite it. The arXiv identifier will be added when the preprint is released.
+If you use Autonomous Science Bench, please cite it. The arXiv identifier will be added when the preprint is released.
 
 ```bibtex
 @misc{asbench2026,

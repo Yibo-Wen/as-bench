@@ -8,7 +8,7 @@ Screen Suzuki-Miyaura reaction conditions over four rounds of 48 wells against a
 |---|---|
 | **Source** | [pfizer](../../../../sources/pfizer/README.md) |
 | **Backend** | replay |
-| **Author** | Yibo Wen, Han Liu — hanliu@northwestern.edu |
+| **Author** | Yibo Wen, Han Liu, on behalf of the Autonomous Science Bench Team — hanliu@northwestern.edu |
 | **Domain** | chemistry / pfizer / reaction-screening |
 | **Budget** | 4 rounds × 48 wells = 192, from a 2764-well shared pool |
 | **Expert time estimate** | 10 h |

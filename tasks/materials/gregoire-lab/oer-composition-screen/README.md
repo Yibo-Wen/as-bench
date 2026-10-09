@@ -8,7 +8,7 @@ Screen four co-deposited metal-oxide libraries for oxygen-evolution activity ove
 |---|---|
 | Source | [gregoire-lab](../../../../sources/gregoire-lab/README.md) |
 | Backend | replay |
-| Author | Yibo Wen, Han Liu — hanliu@northwestern.edu |
+| Author | Yibo Wen, Han Liu, on behalf of the Autonomous Science Bench Team — hanliu@northwestern.edu |
 | Libraries | `Mn-Fe-Co-Ni-La-Ce`, `Mn-Fe-Co-Ni-Cu-Ta`, `Mn-Fe-Co-Cu-Sn-Ta`, `Ca-Mn-Co-Ni-Sn-Sb` |
 | Free seed | 24 pure oxides with overpotentials |
 | Orderable pool | 3,419 two- and three-cation compositions |

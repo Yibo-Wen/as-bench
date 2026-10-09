@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use the Autonomous Science Bench, please cite it as below."
+message: "If you use Autonomous Science Bench, please cite it as below."
 title: "Autonomous Science Bench: Evaluating AI Agents for Autonomous Scientific Discovery"
 type: software
 version: "0.1.0"

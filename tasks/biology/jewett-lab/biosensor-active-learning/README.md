@@ -8,7 +8,7 @@ Engineer a lead-selective metal biosensor over three rounds of cell-free testing
 |---|---|
 | **Source** | [Jewett lab](../../../../sources/jewett-lab/README.md) (published data) |
 | **Backend** | replay (the study's recorded round-0 screen) |
-| **Author** | Yibo Wen, Han Liu — hanliu@northwestern.edu |
+| **Author** | Yibo Wen, Han Liu, on behalf of the Autonomous Science Bench Team — hanliu@northwestern.edu |
 | **Domain** | biology / jewett-lab / biosensor-engineering |
 | **Tags** | `active-learning` `protein-engineering` `biosensor` `multi-objective` `experimental-design` `ranking` |
 | **Budget** | 3 rounds × 10 variants (30) from 677 orderable variants |

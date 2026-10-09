@@ -8,7 +8,7 @@ Steer a scanning microscope over a 128 x 128 field of view with at most 300 adap
 |---|---|
 | **Source** | ATHENA, a Programmable Cloud Laboratories (PCL) node (autonomous microscopy) |
 | **Backend** | replay (one full acquisition of a simulated field of view, replayed per position) |
-| **Author** | Yibo Wen, Han Liu — hanliu@northwestern.edu |
+| **Author** | Yibo Wen, Han Liu, on behalf of the Autonomous Science Bench Team — hanliu@northwestern.edu |
 | **Domain** | materials / athena / microscopy |
 | **Tags** | `autonomous-microscopy` `active-learning` `sparse-sampling` `defect-detection` `experimental-design` `reconstruction` |
 | **Budget** | 15 scan rounds × 20 probe positions (300 of 16,384 pixels, 1.8%) |

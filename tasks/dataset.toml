@@ -37,24 +37,24 @@ name = "Autonomous Science Bench Team"
 
 [[tasks]]
 name = "as-bench/biosensor-active-learning"
-digest = "sha256:11bd0cb0193d139c4076b4ba71d260166a3918a4041c59363f11f357114f6d37"
+digest = "sha256:4f4311a39623ff106d7dca94fc74131c78468a31b7b3cc3210633fe32081d8db"
 
 [[tasks]]
 name = "as-bench/propylene-active-learning"
-digest = "sha256:fa1f26790cd0154737b57b4083ddb2878af8026180560153b503329ea5519c27"
+digest = "sha256:5a92b2947c4efe42764a679a096db4029bb42a11f571d9972ef53f9a2793cd26"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
-digest = "sha256:9c491f5a89cef34cfc8cf16593592a3f870f26b36939163fa63e0a420b115ef5"
+digest = "sha256:5dcfc678d618630dcba2cffbad3edc7a73e6b251750f60ef8dd2f84463bc59ce"
 
 [[tasks]]
 name = "as-bench/suzuki-condition-screen"
-digest = "sha256:4302c36295eefea92c03e1d829aa478b11ff3603776b30049a9c2999542984ba"
+digest = "sha256:a451dc8a4e9761c5fb1a7c82b19d84003400b2ae173e2a3a6354e2d9b2d30415"
 
 [[tasks]]
 name = "as-bench/oer-composition-screen"
-digest = "sha256:d0d1140c12f4c115b0d784e3ca9de661c2066f77636b679ba49bd71abeecd248"
+digest = "sha256:5befb288ebdeba06829a8efd404214fa5d521841058269e919ecdf0223154e8b"
 
 [[tasks]]
 name = "as-bench/coercivity-peak-search"
-digest = "sha256:10acd36940893d4ddc62b9ee34c780a365b98da698009112787fdfe7b89a213d"
+digest = "sha256:9afdc1376f2e4628d3130cd6143e4a3d898fb6033fe9fe7289ca2dad3d7d9818"

@@ -8,7 +8,7 @@ Search a Co-Fe-Ni thin-film composition spread for high magnetic coercivity over
 |---|---|
 | Source | [kusne-lab](../../../../sources/kusne-lab/README.md) |
 | Backend | replay |
-| Author | Yibo Wen, Han Liu — hanliu@northwestern.edu |
+| Author | Yibo Wen, Han Liu, on behalf of the Autonomous Science Bench Team — hanliu@northwestern.edu |
 | Spread | 921 Co-Fe-Ni compositions, each element about 4 to 92 at.% |
 | Free seed | 10 compositions near the one-third simplex lattice, measured |
 | Orderable pool | 604 compositions |

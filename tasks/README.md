@@ -1,6 +1,6 @@
 # Autonomous Science Bench
 
-Autonomous Science Bench, the Autonomous Science Bench, evaluates AI agents for autonomous scientific discovery on real experimental workflows. Each task is a bounded campaign. The agent gets a scientific objective, an experimental interface to a lab, and a limited budget, and is scored on what it achieves with the evidence it chooses to collect.
+Autonomous Science Bench evaluates AI agents for autonomous scientific discovery on real experimental workflows. Each task is a bounded campaign. The agent gets a scientific objective, an experimental interface to a lab, and a limited budget, and is scored on what it achieves with the evidence it chooses to collect.
 
 ## Run
 
