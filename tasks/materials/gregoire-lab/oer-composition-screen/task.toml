@@ -13,11 +13,11 @@ artifacts = [
 name = "as-bench/oer-composition-screen"
 description = "Screen four co-deposited metal-oxide libraries for oxygen-evolution activity over four rounds of 48 compositions against a replay of an 8484-composition droplet-cell screen, then build a model that ranks four-cation compositions that can never be ordered."
 keywords = ["electrocatalysis", "high-throughput-experimentation", "oxygen-evolution", "active-learning", "experimental-design", "ranking", "extrapolation", "caltech"]
-authors = [{ name = "Autonomous Science Bench Team", email = "yibo@u.northwestern.edu" }]
+authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }]
 
 [metadata]
-author_name = "Autonomous Science Bench Team"
-author_email = "yibo@u.northwestern.edu"
+author_name = "Yibo Wen and Han Liu"
+author_email = "hanliu@northwestern.edu"
 author_organization = "Autonomous Science Bench"
 domain = "materials"
 source = "gregoire-lab"

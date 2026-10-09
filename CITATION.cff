@@ -11,10 +11,12 @@ authors:
   - family-names: "Liu"
     given-names: "Han"
     affiliation: "Northwestern University"
+    email: "hanliu@northwestern.edu"
 contact:
   - family-names: "Liu"
     given-names: "Han"
     affiliation: "Northwestern University"
+    email: "hanliu@northwestern.edu"
 license: Apache-2.0
 url: "https://yibow.me/autonomous-science-bench"
 repository-code: "https://github.com/Yibo-Wen/as-bench"

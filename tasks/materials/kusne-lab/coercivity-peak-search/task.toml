@@ -13,11 +13,11 @@ artifacts = [
 name = "as-bench/coercivity-peak-search"
 description = "Search a Co-Fe-Ni thin-film composition spread for high magnetic coercivity over four rounds of 16 compositions against a replay of a 921-composition magnetic screen, finding the best compositions of every one of its coercivity peaks, then build a model that ranks held-out compositions."
 keywords = ["magnetic-materials", "combinatorial-thin-films", "coercivity", "active-learning", "bayesian-optimization", "multi-modal-optimization", "ranking", "nist"]
-authors = [{ name = "Autonomous Science Bench Team", email = "yibo@u.northwestern.edu" }]
+authors = [{ name = "Yibo Wen", email = "yibo@u.northwestern.edu" }, { name = "Han Liu", email = "hanliu@northwestern.edu" }]
 
 [metadata]
-author_name = "Autonomous Science Bench Team"
-author_email = "yibo@u.northwestern.edu"
+author_name = "Yibo Wen and Han Liu"
+author_email = "hanliu@northwestern.edu"
 author_organization = "Autonomous Science Bench"
 domain = "materials"
 source = "kusne-lab"
