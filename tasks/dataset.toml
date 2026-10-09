@@ -38,7 +38,7 @@ digest = "sha256:956d56c56375c95615ffe5e51bad12c35cc56a3452e2fa2ae51d5333e99175f
 
 [[tasks]]
 name = "as-bench/propylene-active-learning"
-digest = "sha256:d01a628d0d9bbddda16fe58e9ea3f2a2befa3bbe52e17a999de57b0742bfb867"
+digest = "sha256:30341434b0cabf40bd423212f2de367f94d8457e7bc0fcc5ef0af0a7a8dfe38b"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
@@ -50,8 +50,8 @@ digest = "sha256:bdceca95b8f982cbc13bddf1137c66214bbed3e8de9216603cba635cec72b68
 
 [[tasks]]
 name = "as-bench/oer-composition-screen"
-digest = "sha256:21a4dcc0e45b8cec6abb3390418d518d6092fe3faaf25c50860cafec0c48d305"
+digest = "sha256:fcdc09af746c77150b0be3e1b8825c9077625d1c09f9f4dd2f97f518a9dad4c4"
 
 [[tasks]]
 name = "as-bench/coercivity-peak-search"
-digest = "sha256:b26905250c64a66c91ee0c8015cac876da306aa471d903e99939d382f5a75071"
+digest = "sha256:d5c67a5b098ac01681a7e368d010e5efa7dc38c2ff9c10c1dfa49ee9891b3f7a"

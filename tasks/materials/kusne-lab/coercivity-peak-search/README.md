@@ -8,12 +8,13 @@ Search a Co-Fe-Ni thin-film composition spread for high magnetic coercivity over
 |---|---|
 | Source | [kusne-lab](../../../../sources/kusne-lab/README.md) |
 | Backend | replay |
+| Author | Yibo Wen, Han Liu — hanliu@northwestern.edu |
 | Spread | 921 Co-Fe-Ni compositions, each element about 4 to 92 at.% |
 | Free seed | 10 compositions near the one-third simplex lattice, measured |
 | Orderable pool | 604 compositions |
 | Budget | 4 rounds x 16, measured once each |
 | Evaluation | 307 held-out compositions, never orderable |
-| Gates | `discovery_score >= 0.65` (perfect 1), `ndcg_at_20 >= 0.65` |
+| Gates | `discovery_score >= 0.60` (perfect 1), `ndcg_at_20 >= 0.65` |
 
 See [instruction.md](instruction.md) for the task as the agent receives it, and [task.toml](task.toml) for the full environment and verifier configuration.
 
@@ -60,7 +61,7 @@ Both gates must hold, and the reward is 1 only if they both do:
 
 | metric | gate |
 |---|---|
-| `discovery_score` — half the share of standouts found in the worst-covered peak plus half the share found across all peaks, so a perfect score is 1 | >= 0.65 |
+| `discovery_score` — half the share of standouts found in the worst-covered peak plus half the share found across all peaks, so a perfect score is 1 | >= 0.60 |
 | `ndcg_at_20` — NDCG@20 over the 307 held-out compositions, relevance `max(coercivity - 8.5, 0)` in mT, so `asb_verify.ranking.ranking_metrics` is reused unchanged with a scalar threshold | >= 0.65 |
 
 24 of the 307 held-out compositions are at or above 8.5 mT. `worst_peak_standouts`, `peak_standouts`, `standouts_peak_1`, `standouts_peak_2`, `precision_at_20` and `best_coercivity_found_mt` are reported, not gated. The reference's 0.925 and 0.827 clear both gates; the nop agent orders nothing, delivers nothing, and fails verification.

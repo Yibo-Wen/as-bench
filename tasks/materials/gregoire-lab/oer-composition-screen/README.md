@@ -8,12 +8,13 @@ Screen four co-deposited metal-oxide libraries for oxygen-evolution activity ove
 |---|---|
 | Source | [gregoire-lab](../../../../sources/gregoire-lab/README.md) |
 | Backend | replay |
+| Author | Yibo Wen, Han Liu — hanliu@northwestern.edu |
 | Libraries | `Mn-Fe-Co-Ni-La-Ce`, `Mn-Fe-Co-Ni-Cu-Ta`, `Mn-Fe-Co-Cu-Sn-Ta`, `Ca-Mn-Co-Ni-Sn-Sb` |
 | Free seed | 24 pure oxides with overpotentials |
 | Orderable pool | 3,419 two- and three-cation compositions |
 | Budget | 4 rounds x 48, measured once each |
 | Evaluation | 5,039 four-cation compositions, never orderable |
-| Gates | `standout_catalysts >= 55` (perfect 112), `ndcg_at_100 >= 0.50` |
+| Gates | `standout_catalysts >= 55` (perfect 112), `ndcg_at_100 >= 0.55` |
 
 See [instruction.md](instruction.md) for the task as the agent receives it, and [task.toml](task.toml) for the full environment and verifier configuration.
 
@@ -62,9 +63,9 @@ Both gates must hold, and the reward is 1 only if they both do:
 | metric | gate |
 |---|---|
 | `standout_catalysts` — ordered designs that are standouts on their own library, at most 28 per library, so a perfect score is 112 | >= 55 |
-| `ndcg_at_100` — NDCG@100 over the 5,039 four-cation designs, relevance `max(u, 0)` | >= 0.50 |
+| `ndcg_at_100` — NDCG@100 over the 5,039 four-cation designs, relevance `max(u, 0)` | >= 0.55 |
 
-288 of the 3,419 orderable designs qualify as standouts. Relevance is `max(u, 0)` where `u` is the per-library normalised quality, so `asb_verify.ranking.ranking_metrics` is reused unchanged with a scalar threshold of 0. `standouts_uncapped`, `precision_at_100` and `libraries_screened` are reported, not gated. The reference's 61 and 0.588 are margins of 1.11x and 1.18x over the gates; the nop agent orders nothing, delivers nothing, and fails verification.
+288 of the 3,419 orderable designs qualify as standouts. Relevance is `max(u, 0)` where `u` is the per-library normalised quality, so `asb_verify.ranking.ranking_metrics` is reused unchanged with a scalar threshold of 0. `standouts_uncapped`, `precision_at_100` and `libraries_screened` are reported, not gated. The reference's 63 and 0.606 are margins of 1.15x and 1.10x over the gates; the nop agent orders nothing, delivers nothing, and fails verification.
 
 `authoring/calibrate_gates.py --reps 12` checks four rules. The shipped reference clears every gate on the shipped fixture with at least a 10% margin; non-adaptive campaign strategies fail the joint gate on at least 90% of repetitions, and rank-only predictors, which run no experiments at all, fail the ranking gate on at least 90%; the discovery gate asks for at most half a perfect score, while the ranking gate is bounded by rule 1 rather than by an absolute ceiling; and the evaluation set holds at least k = 100 relevant designs. Re-run it after any change to the regions, the budget, the gates, or the reference's model class.
 
