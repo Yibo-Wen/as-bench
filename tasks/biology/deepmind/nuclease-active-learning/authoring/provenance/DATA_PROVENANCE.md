@@ -97,8 +97,8 @@ is also the deliverable's `input_field`.
 
 ## Budget and gates
 
-4 rounds × 96 = 384 of 20,000 (1.9%). Gates `discovery_hits ≥ 175`,
-`distinct_hit_families ≥ 150`, `ndcg_at_100 ≥ 0.36`, calibrated by
+4 rounds × 96 = 384 of 20,000 (1.9%). Gates `discovery_hits ≥ 190`,
+`distinct_hit_families ≥ 175`, `ndcg_at_100 ≥ 0.42`, calibrated by
 `authoring/calibrate_gates.py --splits 30`; the table is in `README.md` "Verification".
 Rule-3 witnesses over those 30 splits: pool hits 3,947–4,132, families among them 857–983,
 relevant designs in the evaluation library 947–1,053.

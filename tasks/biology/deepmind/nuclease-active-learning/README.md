@@ -31,7 +31,7 @@ A sort does not measure a turnover rate. It places each variant in an **ordered 
 
 ## Difficulty
 
-The budget is 384 of 20,000 — 1.9% of the pool. Random screening finds about 76 hits; the reference finds 260. Three things make it hard:
+The budget is 384 of 20,000 — 1.9% of the pool. Random screening finds about 76 hits; the reference finds 278 on the shipped split and 260 at the median calibration split. Three things make it hard:
 
 - **Combination effects have to be bought.** All 2,088 single substitutions are free, with labels, but only 40 of them reach class 2. The pool and the evaluation library hold 2-to-11 substitution variants, so the campaign is a budgeted search inside the regime it is scored on.
 - **Substitution count is worse than useless as a prior.** It ranks the evaluation library at NDCG@100 = 0.067, below random scores at 0.129, because the many-substitution variants are mostly dead.
