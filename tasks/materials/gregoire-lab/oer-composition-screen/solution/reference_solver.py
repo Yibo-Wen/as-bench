@@ -16,7 +16,8 @@ authoring/calibrate_gates.py over repeated campaigns):
   is a pure RBF, and the endmembers enter with a larger per-point noise so they anchor
   the scale without dominating the fit.
 * **No linear term.** An added DotProduct made the fit strictly worse, and removing it
-  lifts every statistic of the reference's ranking: on the shipped fixture 0.588 to
+  lifted every statistic of the reference's ranking under the earlier half-greedy
+  policy: on the shipped fixture 0.588 to
   0.606, and over twelve presentation orders the median 0.536 to 0.546, the worst 0.421
   to 0.437 and the best 0.593 to 0.608, with standouts 61 to 63. The RBF already carries
   the composition trend through `normalize_y`; the extra global slope only pulled the
@@ -28,13 +29,22 @@ authoring/calibrate_gates.py over repeated campaigns):
 * **Round 1 is a space-filling design.** Six endmembers per library is too little to
   fit, so the first batch spreads evenly over the libraries by max-min distance rather
   than trusting a model that does not exist yet.
-* **Later rounds split the batch.** Half goes to the best predicted compositions, half
-  to space filling. Pure exploitation finds the most standouts but ranks the four-cation
-  region worst; pure space filling ranks best but finds a third as many standouts. Only
-  the split clears both gates.
+* **Later rounds split the batch.** Two thirds go to the best predicted compositions.
+  The other third goes where it most reduces the model's uncertainty over that
+  library's four-cation compositions, given the measurements so far, since that is the
+  region the ranking gate grades. Pure exploitation finds the most standouts but ranks
+  the four-cation region worst. The earlier policy split the batch in half and spread
+  the other half by max-min distance, whose many exact ties on the 10 at.% grid fell to
+  catalog position: it cleared both gates on 3 of the twelve calibration orders and on
+  1 of 24 further orders. Targeting the graded region's uncertainty lifts that to 6 of
+  12 and 16 of 24, and lets the exploit share rise from a half to two thirds.
+  Conditioning that choice on the round's exploit picks as well cleared 12 of 36.
+* **The final model is slightly smoother.** It is fitted with a length scale of 0.165
+  rather than the 0.15 the selection models use, because it extrapolates into the
+  four-cation region. Using 0.165 for selection as well cleared only 19 of 36 orders.
 
 The graded four-cation compositions can never be ordered, which is what makes the
-coverage half of the budget pay for itself.
+coverage share of the budget pay for itself.
 """
 
 from __future__ import annotations
@@ -47,6 +57,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from scipy.linalg import solve_triangular
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import ConstantKernel, DotProduct, RBF
 
@@ -56,8 +67,8 @@ ASB = os.environ.get("ASB_BIN", "asb")
 ELEMENTS = ["Mn", "Fe", "Co", "Ni", "La", "Ce", "Cu", "Ta", "Sn", "Ca", "Sb"]
 ROUNDS = 4
 BATCH_SIZE = 48
-GREEDY_SHARE = 0.5      # half of each later batch to the best predicted; raising it
-# lifts discovery on the fixture but drops the median ranking below the campaign's gate
+GREEDY_SHARE = 2 / 3    # two thirds of each later batch to the best predicted; the rest
+# goes to the compositions that most reduce uncertainty over the four-cation region
 N_LIBRARIES = 4
 # The greedy cap has to bind on the greedy half, not on the whole batch: sized against
 # the whole batch it never binds, the greedy picks pile onto one or two libraries, and
@@ -74,6 +85,7 @@ SEED_ALPHA = 4.0e-3
 # the four-cation extrapolation falls apart (one repetition in three at ndcg 0.168).
 # A fixed kernel makes the reference deterministic.
 LENGTH_SCALE = 0.15
+FINAL_LENGTH_SCALE = 0.165  # the delivered model, which extrapolates to four cations
 SIGNAL_VARIANCE = 1.0
 LINEAR_SIGMA = 0.1      # only read when the linear term is on
 # Off: the RBF alone ranks better on the fixture and on every repetition measured, and
@@ -123,14 +135,15 @@ def global_matrix(rows: list[dict]) -> np.ndarray:
     return np.array([[float(row[name]) for name in ELEMENTS] for row in rows], float)
 
 
-def fit(features: np.ndarray, values: np.ndarray, alpha: np.ndarray):
+def fit(features: np.ndarray, values: np.ndarray, alpha: np.ndarray,
+        length_scale: float = LENGTH_SCALE):
     """A Gaussian process on a smooth, low-dimensional composition landscape.
 
     A pure RBF for the local interpolation; per-point noise lets the endmembers be
     down-weighted, and normalize_y handles the offset between libraries. The optional
     linear term is off: it cost the reference ranking on every repetition measured.
     """
-    kernel = ConstantKernel(SIGNAL_VARIANCE, "fixed") * RBF(LENGTH_SCALE, "fixed")
+    kernel = ConstantKernel(SIGNAL_VARIANCE, "fixed") * RBF(length_scale, "fixed")
     if USE_LINEAR_TERM:
         kernel = kernel + DotProduct(sigma_0=LINEAR_SIGMA, sigma_0_bounds="fixed")
     model = GaussianProcessRegressor(kernel=kernel, alpha=alpha, normalize_y=True,
@@ -163,20 +176,20 @@ class Surrogate:
     """A Gaussian process per library, plus the per-library scales for the score."""
 
     def __init__(self, by_library: dict[str, list[dict]], observed_rows, observed_values,
-                 seed_rows, seed_values):
+                 seed_rows, seed_values, length_scale: float = LENGTH_SCALE):
         self.by_library = by_library
         rows = list(seed_rows) + list(observed_rows)
         values = np.asarray(list(seed_values) + list(observed_values), float)
         alpha = np.asarray([SEED_ALPHA] * len(seed_rows)
                            + [OBSERVED_ALPHA] * len(observed_rows), float)
         self.models: dict[str, GaussianProcessRegressor] = {}
-        self.fallback = fit(global_matrix(rows), values, alpha)
+        self.fallback = fit(global_matrix(rows), values, alpha, length_scale)
         for library in by_library:
             keep = [i for i, row in enumerate(rows) if row["library"] == library]
             if len(keep) >= MIN_FIT:
                 self.models[library] = fit(
                     library_matrix([rows[i] for i in keep], library),
-                    values[keep], alpha[keep])
+                    values[keep], alpha[keep], length_scale)
         self.scales = {}
         for library, grid in by_library.items():
             predicted = np.sort(self._predict(library, grid))
@@ -258,6 +271,72 @@ def export_javascript(surrogate: Surrogate, grid: list[dict], path: Path) -> Non
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
+class UncertaintyReduction:
+    """One library's posterior covariance between its candidates and its four-cation
+    grid, updated as each pick is added to the batch."""
+
+    def __init__(self, model: GaussianProcessRegressor, library: str,
+                 candidates: list[dict], grid: list[dict]):
+        self.kernel = model.kernel_
+        train = model.X_train_
+        self.points = library_matrix(candidates, library)
+        quad = library_matrix(grid, library)
+        self.v_points = solve_triangular(model.L_, self.kernel(train, self.points),
+                                         lower=True)
+        v_quad = solve_triangular(model.L_, self.kernel(train, quad), lower=True)
+        self.cross = self.kernel(quad, self.points) - v_quad.T @ self.v_points
+        self.variance = self.kernel.diag(self.points) - np.sum(self.v_points ** 2, 0)
+        self.updates: list[np.ndarray] = []
+
+    def gains(self) -> np.ndarray:
+        """Each candidate's reduction of the summed variance over the grid."""
+        return (np.sum(self.cross ** 2, 0)
+                / (np.maximum(self.variance, 0.0) + OBSERVED_ALPHA))
+
+    def add(self, index: int) -> None:
+        column = (self.kernel(self.points, self.points[index:index + 1])[:, 0]
+                  - self.v_points.T @ self.v_points[:, index])
+        for update in self.updates:
+            column = column - update * update[index]
+        scale = np.sqrt(max(column[index], 0.0) + OBSERVED_ALPHA)
+        update = column / scale
+        self.cross = self.cross - np.outer(self.cross[:, index] / scale, update)
+        self.variance = self.variance - update ** 2
+        self.updates.append(update)
+
+
+def coverage_picks(surrogate: Surrogate, candidates: list[dict], count: int,
+                   libraries: list[str]) -> list[dict]:
+    """The candidates that most reduce the posterior variance over each library's
+    four-cation grid, given the measurements so far, picked one at a time across all
+    libraries. Falls back to max-min space filling when no library has its own model."""
+    states, members = {}, {}
+    for library in libraries:
+        mine = [i for i, row in enumerate(candidates) if row["library"] == library]
+        model = surrogate.models.get(library)
+        if model is not None and mine:
+            states[library] = UncertaintyReduction(
+                model, library, [candidates[i] for i in mine], surrogate.by_library[library])
+            members[library] = mine
+    if not states:
+        return max_min_fill([], count, candidates)
+    picked, taken = [], set()
+    for _ in range(min(count, len(candidates))):
+        best = None
+        for library, state in states.items():
+            gains = state.gains()
+            for k in np.argsort(-gains):
+                if members[library][k] not in taken:
+                    if best is None or gains[k] > best[0]:
+                        best = (gains[k], library, int(k))
+                    break
+        _, library, k = best
+        states[library].add(k)
+        taken.add(members[library][k])
+        picked.append(candidates[members[library][k]])
+    return picked
+
+
 def select(surrogate, candidates: list[dict], observed_rows: list[dict],
            libraries: list[str], round_index: int) -> list[dict]:
     """One round's batch. Round 1 has no surrogate to trust, so it space fills."""
@@ -274,7 +353,7 @@ def select(surrogate, candidates: list[dict], observed_rows: list[dict],
         max(1, int(round((BATCH_SIZE - explore) / len(libraries) * GREEDY_CAP_SLACK))))
     chosen = {row["sample_id"] for row in exploit}
     rest = [row for row in candidates if row["sample_id"] not in chosen]
-    return exploit + max_min_fill(observed_rows + exploit, explore, rest)
+    return exploit + coverage_picks(surrogate, rest, explore, libraries)
 
 
 def run_campaign(pool: list[dict], evaluation: list[dict], endmembers: list[dict],
@@ -305,7 +384,8 @@ def run_campaign(pool: list[dict], evaluation: list[dict], endmembers: list[dict
             ordered.add(sample)
         print(f"round {round_index + 1}: {len(ordered)} measured", file=sys.stderr)
 
-    return (Surrogate(quad_grid, observed_rows, observed_values, endmembers, seed_values),
+    return (Surrogate(quad_grid, observed_rows, observed_values, endmembers, seed_values,
+                      FINAL_LENGTH_SCALE),
             observed_rows)
 
 
