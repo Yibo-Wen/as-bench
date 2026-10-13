@@ -73,7 +73,11 @@ paths:
         campaigns send unique design IDs from the next stage's catalog; in
         shared-pool catalog campaigns (design_space.shared_pool = true) a design
         already measured in an earlier non-failed job is rejected with 400
-        without consuming the stage. Grid
+        without consuming the stage. When the stage carries a composition rule
+        (reported on the campaign card as stages[].composition), the batch must
+        hold exactly the stated number of designs for each value of the named
+        catalog column, and any other mix is rejected with 400 without
+        consuming the stage. Grid
         campaigns (design_space.kind = grid) send position IDs "r{row}c{col}"
         inside design_space.shape; a position can be measured at most once per
         campaign, and out-of-bounds, duplicate, or repeated positions are
@@ -252,6 +256,18 @@ components:
               label: {type: string}
               batch_size: {type: integer}
               catalog_size: {type: integer, description: catalog campaigns only}
+              composition:
+                type: object
+                description: >
+                  Catalog campaigns only, and only when the stage fixes its batch's
+                  mix. The batch must hold exactly counts[value] designs whose
+                  catalog column `column` equals `value`, for every listed value,
+                  and no designs with any other value of that column.
+                properties:
+                  column: {type: string}
+                  counts:
+                    type: object
+                    additionalProperties: {type: integer}
         budget:
           type: object
           properties:

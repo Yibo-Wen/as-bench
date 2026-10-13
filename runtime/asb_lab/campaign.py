@@ -51,6 +51,13 @@ class Stage:
     catalog_path: Path | None
     design_ids: tuple[str, ...]
     catalog_rows: tuple[dict[str, str], ...]
+    #: Optional composition rule: a catalog column, and the exact number of designs the
+    #: batch must carry for each of that column's values. A campaign whose catalog spans
+    #: two kinds of design with different base rates uses it to fix the mix, so every
+    #: submission is scored on the same denominators instead of on a mix it chose. An
+    #: empty mapping means no rule.
+    composition_column: str = ""
+    composition_counts: tuple[tuple[str, int], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -159,6 +166,8 @@ class Campaign:
         if batch_size <= 0:
             raise ValueError(f"stage {entry['stage']}: invalid batch_size")
         if self.design_space.kind in (UPLOAD, GRID):
+            if "composition" in entry:
+                raise ValueError(f"stage {entry['stage']}: composition needs a catalog")
             return Stage(int(entry["stage"]), entry.get("label", ""), batch_size, None, (), ())
         catalog_path = self.root / entry["catalog"]
         with catalog_path.open(newline="") as handle:
@@ -171,6 +180,30 @@ class Campaign:
             raise ValueError(f"{catalog_path}: duplicate design ids")
         if batch_size > len(ids):
             raise ValueError(f"stage {entry['stage']}: invalid batch_size")
+        column, counts = "", ()
+        if "composition" in entry:
+            rule = entry["composition"]
+            column = str(rule["column"])
+            if column not in (reader.fieldnames or []):
+                raise ValueError(f"{catalog_path}: no column {column} for composition")
+            counts = tuple((str(key), int(value))
+                           for key, value in sorted(rule["counts"].items()))
+            if any(value < 0 for _, value in counts):
+                raise ValueError(f"stage {entry['stage']}: negative composition count")
+            if sum(value for _, value in counts) != batch_size:
+                raise ValueError(f"stage {entry['stage']}: composition counts must sum to "
+                                 f"batch_size {batch_size}")
+            present = {row[column] for row in rows}
+            missing = {key for key, _ in counts} - present
+            if missing:
+                raise ValueError(f"{catalog_path}: composition names values absent from "
+                                 f"{column}: {sorted(missing)}")
+            for key, value in counts:
+                available = sum(1 for row in rows if row[column] == key)
+                if value > available:
+                    raise ValueError(f"stage {entry['stage']}: composition asks for "
+                                     f"{value} designs with {column}={key}, catalog has "
+                                     f"{available}")
         return Stage(
             stage=int(entry["stage"]),
             label=entry.get("label", ""),
@@ -178,6 +211,8 @@ class Campaign:
             catalog_path=catalog_path,
             design_ids=ids,
             catalog_rows=rows,
+            composition_column=column,
+            composition_counts=counts,
         )
 
     @property
@@ -228,6 +263,11 @@ class Campaign:
             entry = {"stage": stage.stage, "label": stage.label, "batch_size": stage.batch_size}
             if self.design_space.kind == CATALOG:
                 entry["catalog_size"] = len(stage.design_ids)
+                if stage.composition_counts:
+                    entry["composition"] = {
+                        "column": stage.composition_column,
+                        "counts": {key: value
+                                   for key, value in stage.composition_counts}}
             stages.append(entry)
         measurements = []
         for m in self.measurements:
