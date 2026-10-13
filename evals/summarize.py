@@ -31,6 +31,7 @@ import ast
 import csv
 import fnmatch
 import json
+import re
 import statistics
 import sys
 from collections import defaultdict
@@ -40,7 +41,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASE_COLUMNS = [
     "job", "trial", "task", "agent", "model", "effort", "reward", "exception", "infra_error",
-    "verifier_error", "agent_minutes", "cost_usd", "input_tokens", "output_tokens", "cache_tokens",
+    "verifier_error", "refused", "refusal_soft", "refusal_category", "refusal_models",
+    "model_requested", "answered_by",
+    "agent_minutes", "cost_usd", "input_tokens", "output_tokens", "cache_tokens",
 ]
 #: Where task directories live: the dataset, then retired and withheld campaigns.
 TASK_ROOTS = [ROOT / "tasks", ROOT / "archive", ROOT / "withheld"]
@@ -49,6 +52,78 @@ OLD_PREFIXES = ("pcl-bench/",)
 CANCELLED = {"CancelledError", "KeyboardInterrupt"}
 TIMEOUTS = {"AgentTimeoutError"}
 NO_MODEL_AGENTS = {"oracle", "nop"}
+
+#: A policy refusal, which is not a failure and not a capability result. The API answers
+#: 200 with stop_reason "refusal" and a category rather than a 4xx, so a harness that
+#: only looks at the exception type records it as a crash. Counting it as a failed trial
+#: reads a policy decision as "the model could not do this", which is wrong in both
+#: directions: it understates the model and it inflates the apparent difficulty of the
+#: task.
+#:
+#: A refusal has two outcomes and they must not be merged. A **hard** refusal ends the
+#: run: the requested model declines and either no fallback is offered or the fallback
+#: target declines as well. A **soft** refusal is retried on another model server-side,
+#: which then does the work -- observed on three runs here, where Opus 5.5 declined and
+#: Opus 4.8 produced 128 to 168 turns of it. Scoring a soft refusal as a refusal throws
+#: away a completed trial; scoring it as the requested model's result credits the wrong
+#: model. So the pass rate keeps soft refusals and drops hard ones, and `refusal_models`
+#: records who actually answered.
+REFUSAL_CATEGORY = re.compile(r'"api_refusal_category"\s*:\s*"([a-z_]+)"')
+REFUSAL_STOP = re.compile(r'"stop_details"\s*:\s*\{"type"\s*:\s*"refusal"\s*,'
+                          r'\s*"category"\s*:\s*"([a-z_]+)"')
+#: Which model produced each refusal. A refusal may be followed by a server-side
+#: fallback to a different model, which can also refuse, so the requested model is not
+#: enough to say what was measured.
+REFUSAL_MODEL = re.compile(r'"original_model"\s*:\s*"([^"]+)"[^}]*?'
+                           r'"api_refusal_category"\s*:\s*"[a-z_]+"')
+#: A refusal the run did not come back from: no fallback offered, or the provider's own
+#: hard-stop wording. `model_refusal_fallback` is deliberately absent -- that one is
+#: retried and the run continues.
+HARD_REFUSAL = re.compile(r'model_refusal_no_fallback|violate our Usage Policy|'
+                          r'Start a new session to continue')
+#: Which model actually produced each assistant turn, so a soft refusal's result is
+#: credited to the model that answered rather than to the one that declined.
+WORKER_MODEL = re.compile(r'"type"\s*:\s*"assistant".{0,400}?"model"\s*:\s*"'
+                          r'(claude-[a-z0-9.-]+)"')
+
+
+def refusal_of(trial_dir: Path) -> tuple[str, str, bool, str]:
+    """What a trial's agent logs say about refusals.
+
+    Returns (categories, refusing models, hard, models that did the work). ``hard`` is
+    true when the run ended on the refusal rather than being retried on another model.
+    Reads the agent's own transcript rather than the result's exception, because the
+    exception only says the command exited non-zero.
+    """
+    categories: list[str] = []
+    models: list[str] = []
+    workers: dict[str, int] = {}
+    hard = False
+    agent_dir = trial_dir / "agent"
+    if not agent_dir.is_dir():
+        return "", "", False, ""
+    for path in sorted(agent_dir.glob("*.txt")) + sorted(agent_dir.glob("*.json")):
+        if not path.is_file() or path.stat().st_size > 64 * 1024 * 1024:
+            continue
+        try:
+            text = path.read_text(errors="ignore")
+        except OSError:
+            continue
+        for match in REFUSAL_CATEGORY.finditer(text):
+            categories.append(match.group(1))
+        for match in REFUSAL_STOP.finditer(text):
+            categories.append(match.group(1))
+        models.extend(match.group(1) for match in REFUSAL_MODEL.finditer(text))
+        if HARD_REFUSAL.search(text):
+            hard = True
+        for match in WORKER_MODEL.finditer(text):
+            workers[match.group(1)] = workers.get(match.group(1), 0) + 1
+    answered = "|".join(name for name, _ in
+                        sorted(workers.items(), key=lambda kv: -kv[1]))
+    if not categories and not hard:
+        return "", "", False, answered
+    return ("|".join(sorted(set(categories))), "|".join(dict.fromkeys(models)),
+            hard, answered)
 
 
 def is_infra_error(row: dict) -> bool:
@@ -171,6 +246,20 @@ def trial_row(job: str, trial_dir: Path, result: dict) -> dict:
     }
     row.update(metrics)
     row["infra_error"] = is_infra_error(row)
+    category, models, hard, answered = refusal_of(trial_dir)
+    row["refused"] = hard
+    row["refusal_soft"] = bool(category) and not hard
+    row["refusal_category"] = category
+    row["refusal_models"] = models
+    row["model_requested"] = row["model"]
+    row["answered_by"] = answered
+    # A soft refusal is retried on another model server-side, and that model does the
+    # work. The row then describes what the answering model achieved, not the one that
+    # declined, so the result is attributed to it and the request is kept alongside.
+    # Without this, a trial Opus 4.8 completed after Opus 5.5 declined would be reported
+    # as Opus 5.5 passing a task it never took a turn on.
+    if row["refusal_soft"] and answered and answered != row["model"]:
+        row["model"] = answered.split("|")[0]
     return row
 
 
@@ -218,13 +307,17 @@ def aggregate(rows: list[dict]) -> dict[str, dict]:
             metric_keys = list(gates)
         entries = []
         for (agent, model, effort), group in groups.items():
-            trials = [t for t in group if not t["infra_error"]]
+            # Refusals leave the pass rate for the same reason infrastructure errors do:
+            # neither is a measurement of what the agent can do.
+            trials = [t for t in group if not t["infra_error"] and not t.get("refused")]
             graded = [regrade(t, gates) for t in trials]
             rewards = [float(t["reward"] or 0) if value is None else value
                        for t, value in zip(trials, graded)]
             entry = {
                 "agent": agent, "model": model, "effort": effort, "trials": len(trials),
-                "infra": len(group) - len(trials),
+                "infra": sum(1 for t in group if t["infra_error"]),
+                "refused": sum(1 for t in group if t.get("refused")
+                               and not t["infra_error"]),
                 "passed": sum(r >= 1 for r in rewards),
                 "pass_rate": _mean(rewards),
                 "errors": sum(bool(t["exception"]) for t in trials),
@@ -266,6 +359,11 @@ def render_markdown(summary: dict[str, dict], n_trials: int) -> str:
         "a trial passes when every gate holds, and failed or timed-out trials count as 0. "
         "Trials whose agent crashed before any model call (e.g. no API credit) are infrastructure "
         "errors, shown in the pass column and excluded from pass rates and metrics. "
+        "A trial the model refused on policy grounds is shown there too, as `refused`, and "
+        "is also excluded: the API answers 200 with stop_reason \"refusal\" and a category, "
+        "so it is neither a failure nor a measurement of capability, and scoring it as 0 "
+        "would read a policy decision as an inability. `trials.csv` carries the category "
+        "and every model that refused, including a server-side fallback target. "
         "Cost and agent minutes are totals over a configuration's scored trials. "
         "Trials are graded against the gates printed in each table, so a trial scored "
         "before a gate moved is reported at today's gates, not at the one it ran under. "
@@ -279,8 +377,10 @@ def render_markdown(summary: dict[str, dict], n_trials: int) -> str:
                   "| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
         for e in table["entries"]:
             passed = f"{e['passed']}/{e['trials']}"
-            if e["infra"]:
-                passed += f" ({e['infra']} infra)"
+            notes = ([f"{e['infra']} infra"] if e["infra"] else []) + \
+                    ([f"{e['refused']} refused"] if e.get("refused") else [])
+            if notes:
+                passed += f" ({', '.join(notes)})"
             cells = [e["agent"], _model_label(e["model"], e["effort"]), passed]
             for key in metric_keys:
                 mean, low, high = e["metrics"].get(key, (None, None, None))

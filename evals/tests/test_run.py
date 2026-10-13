@@ -21,21 +21,36 @@ def test_task_discovery_and_selection():
     assert [t.key for t in tasks] == [
         "biology/deepmind/nuclease-active-learning",
         "biology/jewett-lab/biosensor-active-learning",
+        "biology/ross-lab/ramr-offstate-screen",
         "chemistry/pfizer/suzuki-condition-screen",
         "chemistry/sargent-lab/propylene-active-learning",
         "materials/gregoire-lab/oer-composition-screen",
         "materials/kusne-lab/coercivity-peak-search"]
+    # include_unlisted picks up campaigns under tasks/ that dataset.toml does not list
+    # yet, which the manifest allows: "a task in tasks/ that is not listed here is not in
+    # the benchmark". So the listed set is a subset, not the whole of it.
+    unlisted = run.discover_tasks(include_unlisted=True)
+    assert {t.key for t in tasks} <= {t.key for t in unlisted}
     # archive/ is never scanned, even for campaigns missing from the dataset.
-    assert run.discover_tasks(include_unlisted=True) == tasks
-    assert run.select_tasks(tasks, ["biology/deepmind/*"]) == [tasks[0]]
-    assert run.select_tasks(tasks, ["biology/jewett-lab/*"]) == [tasks[1]]
-    assert run.select_tasks(tasks, ["chemistry/*"]) == [tasks[2], tasks[3]]
-    assert run.select_tasks(tasks, ["chemistry/pfizer/*"]) == [tasks[2]]
-    assert run.select_tasks(tasks, ["materials/*"]) == [tasks[4], tasks[5]]
-    assert run.select_tasks(tasks, ["materials/gregoire-lab/*"]) == [tasks[4]]
-    assert run.select_tasks(tasks, ["materials/kusne-lab/*"]) == [tasks[5]]
-    assert run.select_tasks(tasks, ["oer-composition-screen"]) == [tasks[4]]
-    assert run.select_tasks(tasks, ["coercivity-peak-search"]) == [tasks[5]]
+    assert not [t for t in unlisted if "archive" in t.path.parts]
+    # Selected by key rather than by position: these assertions are about which pattern
+    # matches what, and indexing into the list made every one of them break whenever a
+    # campaign was added before it in sort order.
+    def keys(*patterns):
+        return [t.key for t in run.select_tasks(tasks, list(patterns))]
+
+    assert keys("biology/deepmind/*") == ["biology/deepmind/nuclease-active-learning"]
+    assert keys("biology/jewett-lab/*") == ["biology/jewett-lab/biosensor-active-learning"]
+    assert keys("biology/ross-lab/*") == ["biology/ross-lab/ramr-offstate-screen"]
+    assert keys("chemistry/*") == ["chemistry/pfizer/suzuki-condition-screen",
+                                   "chemistry/sargent-lab/propylene-active-learning"]
+    assert keys("chemistry/pfizer/*") == ["chemistry/pfizer/suzuki-condition-screen"]
+    assert keys("materials/*") == ["materials/gregoire-lab/oer-composition-screen",
+                                   "materials/kusne-lab/coercivity-peak-search"]
+    assert keys("materials/gregoire-lab/*") == ["materials/gregoire-lab/oer-composition-screen"]
+    assert keys("materials/kusne-lab/*") == ["materials/kusne-lab/coercivity-peak-search"]
+    assert keys("oer-composition-screen") == ["materials/gregoire-lab/oer-composition-screen"]
+    assert keys("coercivity-peak-search") == ["materials/kusne-lab/coercivity-peak-search"]
     assert run.select_tasks(tasks, []) == tasks
     with pytest.raises(SystemExit):
         run.select_tasks(tasks, ["physics/*"])
@@ -86,8 +101,8 @@ def test_dry_run_writes_harbor_config(tmp_path, capsys):
     config = json.loads((tmp_path / "configs" / "test-job.json").read_text())
     assert config["job_name"] == "test-job"
     assert config["jobs_dir"] == str(tmp_path / "jobs")
-    # --task biology/* matches two campaigns, so the trial count doubles.
-    assert config["n_attempts"] == 3 and config["n_concurrent_trials"] == 30
+    # --task biology/* matches three listed campaigns, so the trial count triples.
+    assert config["n_attempts"] == 3 and config["n_concurrent_trials"] == 45
     assert config["environment"] == {"type": "modal"}
     assert config["agent_timeout_multiplier"] == 0.25
     assert [a["name"] for a in config["agents"]] == [
