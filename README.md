@@ -68,6 +68,7 @@ The reward is 1 only if both gates pass. Learning is always scored on designs th
 | Campaign | Source | Domain | Backend | Budget | Gates: discovery / learning |
 |---|---|---|---|---|---|
 | [nuclease-active-learning](tasks/biology/deepmind/nuclease-active-learning/README.md) | [DeepMind](sources/deepmind/README.md) | biology | replay | 4 × 96 enzyme variants | 190 hits in 175 families / NDCG@100 0.42 |
+| [ramr-offstate-screen](tasks/biology/ross-lab/ramr-offstate-screen/README.md) | [Ross group](sources/ross-lab/README.md) | biology | replay | 4 × 96 repressor designs | 170 hits / NDCG@100 0.52 |
 | [biosensor-active-learning](tasks/biology/jewett-lab/biosensor-active-learning/README.md) | [Jewett lab](sources/jewett-lab/README.md) | biology | replay | 3 × 10 protein variants | 21 hits / NDCG@20 0.70 |
 | [propylene-active-learning](tasks/chemistry/sargent-lab/propylene-active-learning/README.md) | [Sargent lab](sources/sargent-lab/README.md) | chemistry | twin | 3 × 20 dilute-alloy designs | 7 hits / NDCG@20 0.52 |
 | [suzuki-condition-screen](tasks/chemistry/pfizer/suzuki-condition-screen/README.md) | [Pfizer](sources/pfizer/README.md) | chemistry | replay | 4 × 48 reaction-condition wells | 32 standout wells / NDCG@100 0.37 |

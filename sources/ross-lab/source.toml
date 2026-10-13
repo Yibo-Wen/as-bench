@@ -1,0 +1,29 @@
+# Published-data source card. A source is a research group whose published
+# measurements back replay (or twin) campaigns. Campaigns from a source live under
+# tasks/<domain>/<id>/ and declare [metadata] source = "<id>".
+
+id = "ross-lab"
+name = "Ross group"
+full_name = "Ross group (NIST), with Simon d'Oelsnitz (Harvard University)"
+institution = "National Institute of Standards and Technology; Harvard University"
+domain = "biology"
+fields = ["deep-mutational-scanning", "biosensor-engineering"]
+description = "Quantitative, growth-based massively parallel reporter assays of allosteric transcription-factor biosensors: Bayesian dose-response inference for every library member, giving per-variant ligand-free background, dynamic range, EC50, Hill coefficient, and ligand specificity with uncertainties."
+
+[[publications]]
+doi = "10.1038/s41589-026-02275-1"
+citation = "Using enantioselective biosensors to evolve asymmetric biocatalysts. Nature Chemical Biology (2026). Companion study to the deposited RamR deep mutational scan."
+
+[[datasets]]
+doi = "10.5281/zenodo.20385893"
+license = "CC-BY-4.0"
+citation = "Ross, David; d'Oelsnitz, Simon. Response of RamR Biosensor Variants to DHIQ, S-THIQ, & R-THIQ. Zenodo (2026)."
+files = ["Supplementary_Datasets_1and2.zip"]
+
+[capabilities]
+design_spaces = ["substitution variants of the 193-residue TetR-family repressor RamR (UniProt Q8ZR43), shared-pool catalog over the effector-pocket positions"]
+measurements = ["ligand-free background log g0", "dynamic range log(ginf/g0) per ligand", "log EC50 per ligand", "Hill coefficient", "ligand specificity score"]
+
+# Sources support replay and twin backends only; a source cannot run jobs live.
+[backends]
+replay = true   # published measurements replayed by the lab sidecar
