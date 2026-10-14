@@ -21,7 +21,7 @@ def test_task_discovery_and_selection():
     assert [t.key for t in tasks] == [
         "biology/deepmind/nuclease-active-learning",
         "biology/jewett-lab/biosensor-active-learning",
-        "biology/ross-lab/ramr-offstate-screen",
+        "biology/ross-lab/repressor-offstate-screen",
         "chemistry/pfizer/suzuki-condition-screen",
         "chemistry/sargent-lab/propylene-active-learning",
         "materials/gregoire-lab/oer-composition-screen",
@@ -41,7 +41,7 @@ def test_task_discovery_and_selection():
 
     assert keys("biology/deepmind/*") == ["biology/deepmind/nuclease-active-learning"]
     assert keys("biology/jewett-lab/*") == ["biology/jewett-lab/biosensor-active-learning"]
-    assert keys("biology/ross-lab/*") == ["biology/ross-lab/ramr-offstate-screen"]
+    assert keys("biology/ross-lab/*") == ["biology/ross-lab/repressor-offstate-screen"]
     assert keys("chemistry/*") == ["chemistry/pfizer/suzuki-condition-screen",
                                    "chemistry/sargent-lab/propylene-active-learning"]
     assert keys("chemistry/pfizer/*") == ["chemistry/pfizer/suzuki-condition-screen"]

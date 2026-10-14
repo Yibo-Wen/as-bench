@@ -16,4 +16,4 @@ score, each with an uncertainty.
 
 | Campaign | Domain | Backend | Budget |
 |---|---|---|---|
-| [ramr-offstate-screen](../../tasks/biology/ross-lab/ramr-offstate-screen/README.md) | biology | replay | 4 × 96 two- and three-substitution designs |
+| [repressor-offstate-screen](../../tasks/biology/ross-lab/repressor-offstate-screen/README.md) | biology | replay | 4 × 96 two- and three-substitution designs |

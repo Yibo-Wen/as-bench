@@ -44,8 +44,8 @@ name = "as-bench/propylene-active-learning"
 digest = "sha256:2b6f7dc489f9cdf45d918ec80765a69b850c1a8596e82857f29ae21a5211d11f"
 
 [[tasks]]
-name = "as-bench/ramr-offstate-screen"
-digest = "sha256:27a9dcb1217cc5eec425fdf29d72ad3cd0a31a862f461a4ceb5c8c769b6c2600"
+name = "as-bench/repressor-offstate-screen"
+digest = "sha256:145df6772490b3450661c08861eefd61bc02ac1c5edcaad4628222fa15e5d4e7"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
