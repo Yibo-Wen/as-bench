@@ -207,6 +207,31 @@ class Lab:
             invalid = [value for value in designs if value not in allowed]
             if invalid:
                 raise LabError(400, f"designs not eligible in stage {stage_number}: {invalid[:5]}")
+            # A stage may fix the batch's composition, so every submission to it is
+            # scored on the same denominators rather than on a mix it chose. Checked
+            # before the stage is spent: a batch with the wrong mix is a 400 the agent
+            # can correct, not a wasted round.
+            if stage.composition_counts:
+                column = stage.composition_column
+                value_of = {row[self.campaign.design_id_field]: row[column]
+                            for row in stage.catalog_rows}
+                seen: dict[str, int] = {}
+                for design in designs:
+                    key = value_of[design]
+                    seen[key] = seen.get(key, 0) + 1
+                wrong = [(key, want, seen.get(key, 0))
+                         for key, want in stage.composition_counts
+                         if seen.get(key, 0) != want]
+                extra = sorted(set(seen) - {key for key, _ in stage.composition_counts})
+                if wrong or extra:
+                    detail = ", ".join(f"{column}={key}: {got} of {want}"
+                                       for key, want, got in wrong)
+                    if extra:
+                        detail += (", " if detail else "") + \
+                            f"not allowed in this stage: {column}={extra[0]}"
+                    raise LabError(400, f"batch composition for stage {stage_number} "
+                                        f"must be {dict(stage.composition_counts)} "
+                                        f"by {column}; got {detail}")
         if self.campaign.measure_once:
             measured = self.measured_designs()
             repeated = [value for value in designs if value in measured]

@@ -26,6 +26,12 @@ results/
 jobs/
 trials/
 
+# Scratch work that is not the benchmark: share tarballs built for a collaborator,
+# task copies made while probing a behaviour, and one-off analysis output. A task
+# that is meant to ship lives under tasks/ or archive/, never here.
+staging/
+outputs/
+
 # Credentials: copy .env.example to .env
 .env
 .env.*

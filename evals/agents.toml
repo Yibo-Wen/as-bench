@@ -11,6 +11,20 @@
 # leaderboard (snorkel.ai/leaderboard/terminal-bench-science, Sept 2026), so
 # Autonomous Science Bench numbers can be read against it.
 #
+# Codex CLI version: the pin is 0.162.1, and it is load-bearing. 0.146.1 refuses
+# gpt-6-astra outright ("requires a newer version of Codex"). 0.154.0 serves astra but
+# not gpt-6-sol or gpt-6.1-sol: it does not know their metadata, and the request it then
+# builds comes back as "not supported when using Codex with a ChatGPT account", which
+# reads like an entitlement problem and is not one. 0.162.1 serves all three.
+#
+# Codex reasoning effort "max" is real, and the CLI version decides whether it is. The CLI
+# never validates the value, it echoes back whatever it is given, so a value the server
+# declines is silent. Measured on 0.162.1, same prompt, tokens spent over three repeats:
+# medium 6.0-6.8k, high 11.0-11.9k, max 11.4-19.6k, xhigh 6.1k, ultra 6.3k. So high and
+# max are both honoured and max reasons at least as hard; xhigh and ultra are the values
+# that quietly fall back to the default. On 0.154.0 "max" fell back to 591 tokens, which
+# is what makes the version pin above load-bearing for the effort setting too.
+#
 # Model names:
 #   * Vendor CLIs (claude-code, codex, grok-build) take the vendor's bare model id.
 #     Keep Claude ids bare: with ANTHROPIC_BASE_URL set, claude-code passes the
@@ -44,6 +58,51 @@ model = "claude-opus-5-5"
 kwargs = { reasoning_effort = "max" }
 env = { CLAUDE_CODE_MAX_OUTPUT_TOKENS = "128000" }
 
+# Superseded by claude-opus-5.5 and so absent from the leaderboard suites below, but
+# kept callable: it is the model this repository's campaigns were authored against, so a
+# preset for it makes an authoring run reproducible rather than an ad-hoc -m flag.
+[presets."claude-opus-5"]
+agent = "claude-code"
+model = "claude-opus-5"
+kwargs = { reasoning_effort = "max" }
+env = { CLAUDE_CODE_MAX_OUTPUT_TOKENS = "128000" }
+
+# Probes: whether a "Sonnet 5" and a "Fable 5" exist as models distinct from the 5.5 and
+# 5.1 in this family. Kept only if the API serves them; an invalid-model error means the
+# family has no such entry and these come back out.
+# Probes for whether the refusal depends on the claude-code build rather than on the
+# task. The CLI injects its own system prompt, 22 tools and 17 skills into every request,
+# and the classifier sees the whole request, so a different build is a different request.
+# A failure on an unsupported flag is a harness result, not a classifier result, and is
+# reported as such.
+[presets."claude-opus-5-cli2.1.287"]
+agent = "claude-code"
+model = "claude-opus-5"
+kwargs = { reasoning_effort = "max", version = "2.1.287" }
+
+# No reasoning_effort: Harbor turns it into `--effort`, which 2.0.x does not know, and
+# the run dies on the flag before reaching the API. Dropping it is what makes the old
+# build testable at all.
+[presets."claude-opus-5-cli2.0.77"]
+agent = "claude-code"
+model = "claude-opus-5"
+kwargs = { version = "2.0.77" }
+
+[presets."claude-opus-5-cli1.0.128"]
+agent = "claude-code"
+model = "claude-opus-5"
+kwargs = { version = "1.0.128" }
+
+[presets."claude-sonnet-5-probe"]
+agent = "claude-code"
+model = "claude-sonnet-5"
+kwargs = { reasoning_effort = "max" }
+
+[presets."claude-fable-5-probe"]
+agent = "claude-code"
+model = "claude-fable-5"
+kwargs = { reasoning_effort = "max" }
+
 [presets."claude-sonnet-5.5"]
 agent = "claude-code"
 model = "claude-sonnet-5-5"
@@ -63,22 +122,32 @@ model = "claude-haiku-4-5-20251001"
 [presets."gpt-6-astra"]
 agent = "codex"
 model = "gpt-6-astra"
-kwargs = { reasoning_effort = "max", version = "0.146.1" }
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
+
+[presets."gpt-6.1-sol"]
+agent = "codex"
+model = "gpt-6.1-sol"
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
+
+[presets."gpt-6-sol"]
+agent = "codex"
+model = "gpt-6-sol"
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
 
 [presets."gpt-5.6-sol"]
 agent = "codex"
 model = "gpt-5.6-sol"
-kwargs = { reasoning_effort = "max", version = "0.146.1" }
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
 
 [presets."gpt-5.6-terra"]
 agent = "codex"
 model = "gpt-5.6-terra"
-kwargs = { reasoning_effort = "max", version = "0.146.1" }
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
 
 [presets."gpt-5.6-luna"]
 agent = "codex"
 model = "gpt-5.6-luna"
-kwargs = { reasoning_effort = "max", version = "0.146.1" }
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
 
 # --- xAI · Grok Build -----------------------------------------------------------
 [presets."grok-4.7"]
@@ -107,13 +176,13 @@ kwargs = { reasoning_effort = "high" }
 [presets."deepseek-v4.1-flash"]
 agent = "codex"
 model = "deepseek-flash"
-kwargs = { reasoning_effort = "max", version = "0.146.1" }
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
 env = { OPENAI_BASE_URL = "https://api.deepseek.com", OPENAI_API_KEY = "${DEEPSEEK_API_KEY}" }
 
 [presets."deepseek-v4-pro"]
 agent = "codex"
 model = "deepseek-v4-pro"
-kwargs = { reasoning_effort = "max", version = "0.146.1" }
+kwargs = { reasoning_effort = "max", version = "0.162.1" }
 env = { OPENAI_BASE_URL = "https://api.deepseek.com", OPENAI_API_KEY = "${DEEPSEEK_API_KEY}" }
 
 # --- Z.ai and Moonshot · Claude Code against their Anthropic-compatible endpoints ---
@@ -130,6 +199,24 @@ kwargs = { reasoning_effort = "max" }
 env = { ANTHROPIC_BASE_URL = "https://api.moonshot.ai/anthropic", ANTHROPIC_API_KEY = "${MOONSHOT_API_KEY}", ANTHROPIC_AUTH_TOKEN = "${MOONSHOT_API_KEY}" }
 
 # --- Small open-weight models · mini-SWE-agent via OpenRouter (one key) ----------
+# Open-weight models through OpenRouter on the mini-swe-agent harness. Slugs are exact:
+# OpenRouter has no bare "qwen/qwen3.8-max", only the dated snapshot -0902 and the
+# separate -prime variant, and the snapshot is half the price.
+[presets."deepseek-v4.1-flash-mswea"]
+agent = "mini-swe-agent"
+model = "openrouter/deepseek/deepseek-v4.1-flash"
+
+# max_tokens is capped because OpenRouter pre-authorises a request against its maximum
+# possible cost, not its actual cost: on the outside-the-libraries round, where the
+# catalog is 100,034 rows and the prediction file is 2.4 MB, an uncapped request on this
+# model priced above the account's remaining balance and came back 402 ("This request's
+# maximum cost exceeds your available credits ... or lower max_tokens or prompt size")
+# while $10.21 was still available. Capping the ceiling is what makes the call priceable.
+[presets."qwen3.8-max"]
+agent = "mini-swe-agent"
+model = "openrouter/qwen/qwen3.8-max-0902"
+kwargs = { max_tokens = 16000 }
+
 [presets."qwen3.8-27b"]
 agent = "mini-swe-agent"
 model = "openrouter/qwen/qwen3.8-27b"
