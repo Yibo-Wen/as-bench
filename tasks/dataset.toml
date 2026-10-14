@@ -45,7 +45,7 @@ digest = "sha256:7008e523d4abaaf31e901c30a7254cda14d891f39ce52dc1b866a2295592648
 
 [[tasks]]
 name = "as-bench/ramr-offstate-screen"
-digest = "sha256:ea509ce63c2c30d79b88e059b5d09bd68490aea2fefabca7caa63e8be5bf5230"
+digest = "sha256:26531ba81c64fbdee9b1ae7a4556d17f494066cb7583fba2f9706ee02128d694"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"

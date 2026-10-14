@@ -54,7 +54,7 @@ DESIGN_ID = re.compile(r"^variant_[0-9a-f]{16}$")
 SUBSTITUTION = re.compile(r"^[A-Z]([1-9][0-9]{0,2})[A-Z]$")
 GATES = {
     "discovery_hits": 224,
-    "ndcg_at_100": 0.52,
+    "ndcg_at_100": 0.53,
 }
 
 

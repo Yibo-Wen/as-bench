@@ -73,7 +73,7 @@ solver = load("reference_solver", TASK / "solution" / "reference_solver.py")
 #: The shipped gates. Mirrored by tests/test_outputs.py.
 GATES = {
     "discovery_hits": 224,
-    "ndcg_at_100": 0.52,
+    "ndcg_at_100": 0.53,
 }
 RANKING_GATES = ("ndcg_at_100",)
 #: Reported for context and exempt from rule 2: the oracle is not a baseline anyone
