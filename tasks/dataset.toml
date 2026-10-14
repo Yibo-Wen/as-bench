@@ -45,7 +45,7 @@ digest = "sha256:2b6f7dc489f9cdf45d918ec80765a69b850c1a8596e82857f29ae21a5211d11
 
 [[tasks]]
 name = "as-bench/repressor-offstate-screen"
-digest = "sha256:7e5f7f0d68ea517aa110a46df24ddecb631ea00e6b959e2681975461474933f9"
+digest = "sha256:dccc9c6c388aa865f559712e9f6593ad6b37b3b3154119be73ac720338d1d10d"
 
 [[tasks]]
 name = "as-bench/nuclease-active-learning"
