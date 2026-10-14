@@ -13,11 +13,6 @@
 </p>
 
 <p align="center">
-  <a href="https://yibow.me/autonomous-science-bench/leaderboard">Project Page</a> ·
-  <a href="https://arxiv.org/abs/2610.18449">arXiv</a>
-</p>
-
-<p align="center">
   <img src="docs/assets/campaign-loop.gif" width="100%" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
 </p>
 <p align="center">
