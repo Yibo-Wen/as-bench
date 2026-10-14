@@ -14,5 +14,5 @@ harbor run -d as-bench/as-bench --agent claude-code --model anthropic/claude-opu
 ## Links
 
 - **Project page:** https://yibow.me/autonomous-science-bench/leaderboard
-- **Paper:** coming soon
+- **Paper:** https://arxiv.org/abs/2610.18449
 - **Repository:** https://github.com/Yibo-Wen/as-bench

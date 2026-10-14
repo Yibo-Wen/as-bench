@@ -21,3 +21,19 @@ contact:
 license: Apache-2.0
 url: "https://yibow.me/autonomous-science-bench"
 repository-code: "https://github.com/Yibo-Wen/as-bench"
+preferred-citation:
+  type: article
+  title: "Autonomous Science Bench: Evaluating AI Agents for Autonomous Scientific Discovery"
+  authors:
+    - family-names: "Wen"
+      given-names: "Yibo"
+      affiliation: "Northwestern University"
+    - family-names: "Liu"
+      given-names: "Han"
+      affiliation: "Northwestern University"
+  journal: "arXiv preprint arXiv:2610.18449"
+  year: 2026
+  url: "https://arxiv.org/abs/2610.18449"
+  identifiers:
+    - type: other
+      value: "arXiv:2610.18449"

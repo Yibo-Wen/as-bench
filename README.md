@@ -8,21 +8,14 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/📄_Paper-coming_soon-9E9E9E?style=for-the-badge&logoColor=white" alt="Paper — coming soon">
-  <a href="https://yibow.me/autonomous-science-bench/leaderboard"><img src="https://img.shields.io/badge/📝_Project_Page-FF5722?style=for-the-badge&logoColor=white" alt="Project Page"></a>
-</p>
-
-<!-- TODO: once the preprint is out, replace the badge row above with this one (arXiv link in place of TODO) and activate the links row.
-<p align="center">
-  <a href="TODO"><img src="https://img.shields.io/badge/📄_Paper-DC143C?style=for-the-badge&logoColor=white" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2610.18449"><img src="https://img.shields.io/badge/📄_Paper-DC143C?style=for-the-badge&logoColor=white" alt="Paper"></a>
   <a href="https://yibow.me/autonomous-science-bench/leaderboard"><img src="https://img.shields.io/badge/📝_Project_Page-FF5722?style=for-the-badge&logoColor=white" alt="Project Page"></a>
 </p>
 
 <p align="center">
   <a href="https://yibow.me/autonomous-science-bench/leaderboard">Project Page</a> ·
-  <a href="TODO">arXiv</a>
+  <a href="https://arxiv.org/abs/2610.18449">arXiv</a>
 </p>
--->
 
 <p align="center">
   <img src="docs/assets/campaign-loop.gif" width="100%" alt="One campaign: from a seed of measured designs, the agent picks a batch, the lab measures it, and the agent refits its model, repeating for R rounds. The ledger is then scored by the discovery gate and the delivered model by the learning gate.">
@@ -144,15 +137,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) to add a source or a campaign.
 
 ## Citation
 
-If you use Autonomous Science Bench, please cite it. The arXiv identifier will be added when the preprint is released.
+If you use Autonomous Science Bench, please cite it.
 
 ```bibtex
-@misc{asbench2026,
-  title={Autonomous Science Bench: Evaluating {AI} Agents for Autonomous Scientific Discovery},
-  author={Yibo Wen and Han Liu and {Autonomous Science Bench Team}},
+@article{wen2026autonomous,
+  title={Autonomous Science Bench: Evaluating AI Agents for Autonomous Scientific Discovery},
+  author={Yibo Wen and Han Liu},
+  journal={arXiv preprint arXiv:2610.18449},
   year={2026},
-  howpublished={\url{https://yibow.me/autonomous-science-bench}},
-  url={https://yibow.me/autonomous-science-bench},
+  url={https://arxiv.org/abs/2610.18449}
 }
 ```
 
