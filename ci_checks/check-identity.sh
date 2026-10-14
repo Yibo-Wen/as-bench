@@ -12,7 +12,7 @@
 #
 # Runs of 20 or more uppercase letters are removed before matching, because a protein
 # sequence is a legitimate agent-visible string that can spell an identity term by
-# accident: in ramr-pocket-transfer the variant I106M spells one.
+# accident: 192 of repressor-offstate-screen's 20000 pool sequences spell RamR.
 source "$(dirname "$0")/lib.sh"
 FAILED=0
 for task in $(task_dirs "$@"); do

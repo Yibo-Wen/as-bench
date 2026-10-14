@@ -1,6 +1,8 @@
 # Published-data source card. A source is a research group whose published
 # measurements back replay (or twin) campaigns. Campaigns from a source live under
 # tasks/<domain>/<id>/ and declare [metadata] source = "<id>".
+# ci_checks/check-source-registry.sh enforces that the path, the task metadata, and
+# this card agree, and that the card enables each campaign's backend.
 
 id = "ross-lab"
 name = "Ross group"
