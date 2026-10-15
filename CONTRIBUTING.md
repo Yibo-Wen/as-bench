@@ -91,7 +91,7 @@ When the agent designs objects rather than choosing them from a list (photomasks
 In `task.toml` `[metadata]`:
 - `asb_components` selects which runtime parts are vendored (`lab`, `client`, `verify`, `js-sandbox`; default all).
 - `public_copies` lists files that intentionally exist on both the public and the private side (e.g. a target pattern the verifier also reads).
-- `identity_terms` lists the names that would tell the agent which published dataset a replay campaign is built on — the molecule, the organism, the accession, the authors. `ci_checks/check-identity.sh` holds `instruction.md` and everything in `environment/` outside the lab sidecar to it, so attribution belongs in the task root's `LICENSE.md` and `README.md`, which the agent image never copies. Optional, and worth setting for any replay campaign whose agent phase has a public network.
+- `identity_terms` lists the names that would tell the agent which published dataset a replay campaign is built on — the molecule, the organism, the accession, the authors. `ci_checks/check-identity.sh` holds `instruction.md`, everything in `environment/` outside the lab sidecar, and the fields of `campaign.json` that the Lab API hands to the agent (its `campaign_id` and the rest of the public campaign card: `source`, `objective`, `design_id_field`, the design-space text, the stage labels, and the measurement and deliverable text) to it, so attribution belongs in the task root's `LICENSE.md` and `README.md`, which the agent image never copies. Optional, and worth setting for any replay campaign whose agent phase has a public network.
 
 ## Shared-pool catalogs
 
